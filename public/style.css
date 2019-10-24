@@ -1,0 +1,16 @@
+.body {
+display: flex;
+}
+
+.card {
+  width: 15rem;
+  height: 40rem;
+  display: inline-flex;
+  margin: 0.5rem;
+};
+
+.card-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

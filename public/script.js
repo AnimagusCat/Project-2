@@ -17,24 +17,41 @@ var createMovieDetails = function() {
   ////create the movie contents and append to body////
   if (request.status >= 200 && request.status < 400) {
     keyArray.forEach(movie => {
+        const card = document.createElement('div');
+        card.setAttribute('class', 'card');
+
         const img = document.createElement("img");
-        let baseURL = "https://image.tmdb.org/t/p/w185";
+        let baseURL = "https://image.tmdb.org/t/p/w342";
         let poster = movie.poster_path;
+        img.setAttribute('class', 'card-img-top');
         img.src = "".concat(baseURL, poster);
 
-        const h3 = document.createElement('h3');
-        h3.textContent = movie.title;
+        const cardBody = document.createElement('div');
+        cardBody.setAttribute('class', 'card-body h-100');
 
-        const h4 = document.createElement('h4');
-        h4.textContent = movie.vote_average;
+        const h5 = document.createElement('h5');
+        h5.setAttribute('class', 'card-title');
+        h5.textContent = movie.title;
 
-        const p = document.createElement('p');
-        p.textContent = movie.overview;
+        const pRating = document.createElement('h6');
+        pRating.setAttribute('class', 'card-subtitle mb-2 text-muted');
+        pRating.textContent = movie.vote_average;
 
-    document.body.appendChild(img);
-    document.body.appendChild(h3);
-    document.body.appendChild(h4);
-    document.body.appendChild(p);
+        const pOverview = document.createElement('p');
+        pOverview.setAttribute('class', 'card-text text-left');
+        pOverview.textContent = movie.overview;
+
+        const container = document.getElementsByClassName("container");
+        container[0].appendChild(card);
+        card.appendChild(img);
+        card.appendChild(cardBody);
+        cardBody.appendChild(h5);
+        cardBody.appendChild(pRating);
+        cardBody.appendChild(pOverview);
+    //document.body.appendChild(img);
+    //document.body.appendChild(h3);
+    //document.body.appendChild(h4);
+    //document.body.appendChild(p);
     });
   } else {
       reponse.send("it's not working!");
@@ -55,10 +72,16 @@ console.log("time from the script.js: ", something.runtimeKey);
 const genreArray = something.genreKey;
 const runtimeKey = something.runtimeKey;
 
-//genreKey.forEach(function (eachKey) => {
+/*if (genreArray[0]) {
+    var firstGenreKey = genreArray[0];
+} else {
+    genreArray.forEach(function (eachKey) => {
+    console.log("this is eachKey: ", eachKey);
+    var eachKeyValue = "%7C" + "eachKey";
+    return;
+    });
+};*/
 
-
-//})
 
 
 //let url = "".concat('https://api.themoviedb.org/3/discover/movie?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=', genreKey, '&with_runtime.lte=', runtimeKey );

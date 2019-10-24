@@ -47,7 +47,7 @@ app.get('/home', (request, response) => {
   response.render('firstQuestion');
 });
 
-//////////////SUBMIT THE FORM/////////////
+//////////////SUBMIT THE FORM & GET VALUES FOR URL/////////////
 app.post('/recommend', (request, response) => {
   console.log("this is request.body" , request.body);
 
@@ -90,7 +90,7 @@ app.post('/signin', (request, response) => {
 
 //////////SHOW REGISTER ACCOUNT PAGE//////////
 app.get('/register', (request, response) =>{
-  response.render("register")
+  response.render("register");
 });
 
 ///////SUBMITS REGISTRATION FORM AND ADD TO USER DB//////
@@ -116,6 +116,16 @@ app.post('/register', (request, response)=>{
     }
   });
 });
+
+//////SHOW USER'S MOVIE LIST///////
+app.get ('/profile', (request, response) => {
+  response.render("profile");
+})
+
+//////ADD MOVIE TO USER'S MOVIE LIST//////
+app.post('/profile', (request, response) => {
+
+})
 
 /**********************************************************/
 //////////////////////PORT DETAILS//////////////////////////
