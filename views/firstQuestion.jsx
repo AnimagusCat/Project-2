@@ -1,4 +1,5 @@
 var React = require('react');
+const Layout = require("./layout");
 
 class firstQuestion extends React.Component {
 
@@ -7,8 +8,9 @@ class firstQuestion extends React.Component {
 
     return (
               <html>
+              <Layout />
                 <body>
-                  <h1>How are you feeling now?</h1>
+                  <h3>How are you feeling now?</h3>
                   <form method="POST" action="/recommend" id="form">
 
                     <input type="radio" name="mood" id="m1" value="happy"/>Happy<br />
@@ -16,12 +18,13 @@ class firstQuestion extends React.Component {
                     <input type="radio" name="mood" id= "m3" value="angry"/>Angry<br />
                     <input type="radio" name="mood" id= "m4" value="meh"/>Meh<br />
 
-                  <h1>How much time can you spare?</h1>
-                    <input type="radio" name="time" value="60"/>Less than 1 hour<br />
-                    <input type="radio" name="time" value="120"/>1 - 2 hours<br />
-                    <input type="radio" name="time" value=">180"/>More than 2 hours<br />
+                  <h3>How much time can you spare?</h3>
+                    <input type="radio" name="time" id="t1" value="60"/>Less than 1 hour<br />
+                    <input type="radio" name="time" id="t2" value="120"/>1 - 2 hours<br />
+                    <input type="radio" name="time" id="t3" value=">180"/>More than 2 hours<br />
                      <br />
-                    <button type="submit" form="form" value="submit" onClick="formAnswer(mood_value, time_value)">Submit</button>
+                    <button type= "submit" value= "submit">Submit</button>
+
                   </form>
 
                 </body>
