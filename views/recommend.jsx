@@ -3,8 +3,9 @@ const Layout = require("./layout");
 
 class Recommend extends React.Component {
 
-  render() {
 
+  render() {
+    let jData = JSON.stringify(this.props);
     return (
               <html>
               <Layout />
@@ -13,6 +14,9 @@ class Recommend extends React.Component {
                   <h1>Your recommended movies</h1>
                 </div>
                 </body>
+                <script dangerouslySetInnerHTML={{__html:
+                    `var something = ${jData};`
+                }}/>
                 <script src="/script.js"></script>
               </html>
     );

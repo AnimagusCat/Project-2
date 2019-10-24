@@ -49,9 +49,31 @@ app.get('/home', (request, response) => {
 
 //////////////SUBMIT THE FORM/////////////
 app.post('/recommend', (request, response) => {
-    console.log("this is request.body" , request.body);
+  console.log("this is request.body" , request.body);
 
-    response.render('recommend');
+  let mood = request.body.mood;
+  switch (mood) {
+    case "happy": genre = [16, 80, 27, 10402, 53];
+    break;
+    case "sad": genre = [35, 99, 18, 36, 10749, 10770];
+    break;
+    case "angry": genre = [28, 10751, 10752];
+    break;
+    case "meh": genre = [12, 14, 9648, 878];
+    break;
+  };
+
+  let time = request.body.time;
+
+  let urlData = {
+    genreKey: genre,
+    runtimeKey: time
+  };
+
+  console.log("the genre: ", urlData.genreKey);
+  console.log("the duration: ", urlData.runtimeKey);
+
+  response.render('recommend', urlData);
 });
 
 /////////////SHOW SIGN IN PAGE//////////////

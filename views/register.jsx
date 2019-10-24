@@ -8,6 +8,7 @@ class register extends React.Component {
               <html>
               <Layout />
                 <body>
+                <div className="container mt-4 text-center">
                   <h2>Register An Account</h2>
                    <br />
                   <form method="POST" action="/register">
@@ -16,9 +17,9 @@ class register extends React.Component {
                     <div>Password: <input type="text" name="password" /></div>
                     <br />
 
-                    <input type="submit" value="submit" />
+                    <button type="submit" value="submit">Submit</button>
                   </form>
-
+                  </div>
                 </body>
               </html>
     );

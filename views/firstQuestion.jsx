@@ -21,12 +21,10 @@ class firstQuestion extends React.Component {
                   <h3>How much time can you spare?</h3>
                     <input type="radio" name="time" id="t1" value="60"/>Less than 1 hour<br />
                     <input type="radio" name="time" id="t2" value="120"/>1 - 2 hours<br />
-                    <input type="radio" name="time" id="t3" value=">180"/>More than 2 hours<br />
+                    <input type="radio" name="time" id="t3" value="240"/>More than 2 hours<br />
                      <br />
                     <button type= "submit" value= "submit">Submit</button>
-
                   </form>
-
                 </body>
               </html>
     );
