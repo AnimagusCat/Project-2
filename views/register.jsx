@@ -12,9 +12,9 @@ class register extends React.Component {
                   <h2>Register An Account</h2>
                    <br />
                   <form method="POST" action="/register">
-                    <div>Username: <input type="text" name="username" /></div>
+                    <div>Username: <input type="text" name="username" required /></div>
                     <br />
-                    <div>Password: <input type="text" name="password" /></div>
+                    <div>Password: <input type="password" name="password" required/></div>
                     <br />
 
                     <button type="submit" value="submit">Submit</button>

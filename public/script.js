@@ -1,5 +1,3 @@
-// what to do when we receive the request
-//what you want http request to do must be within the responseHandler function
 var createMovieDetails = function() {
   //need to JSON.parse to convert it to an object
   //the responseText is the result from the query in index.js app.get
@@ -48,48 +46,46 @@ var createMovieDetails = function() {
         cardBody.appendChild(h5);
         cardBody.appendChild(pRating);
         cardBody.appendChild(pOverview);
-    //document.body.appendChild(img);
-    //document.body.appendChild(h3);
-    //document.body.appendChild(h4);
-    //document.body.appendChild(p);
     });
   } else {
-      reponse.send("it's not working!");
+      reponse.send("Error fetching movie data");
   };
 };
 
-// make a new request
-//wrap in a function
+/////send new HTTP request/////
 var request = new XMLHttpRequest();
 
-////// when page has finished loading, run this//////
+//// when page has finished loading, run this//////
 request.addEventListener("load", createMovieDetails);
 
-///////THIS URL CHANGES ACCORDING TO FORM'S ANSWERS/////
+/////THIS URL CHANGES ACCORDING TO FORM'S ANSWERS/////
 console.log("genre from the script.js: " , something.genreKey);
 console.log("time from the script.js: ", something.runtimeKey);
-//this is an array of genre values
+
+////this is an array of genre values//////
 const genreArray = something.genreKey;
-const runtimeKey = something.runtimeKey;
+console.log(genreArray);
 
-/*if (genreArray[0]) {
-    var firstGenreKey = genreArray[0];
-} else {
-    genreArray.forEach(function (eachKey) => {
-    console.log("this is eachKey: ", eachKey);
-    var eachKeyValue = "%7C" + "eachKey";
-    return;
-    });
-};*/
+////this joins all the values in the array and add %7C to the middle values///
+let genreArrayString = genreArray.join("%7C");
 
+let time = something.runtimeKey;
 
-
-//let url = "".concat('https://api.themoviedb.org/3/discover/movie?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=', genreKey, '&with_runtime.lte=', runtimeKey );
-
-let url = "https://api.themoviedb.org/3/discover/movie?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=16%7C80%7C27%7C10402%7C53&with_runtime.lte=120";
-// %7C stands for | (OR)
+let url = 'https://api.themoviedb.org/3/discover/movie?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=' + genreArrayString + '&with_runtime.lte=' + time;
 
 request.open("GET", url);
 
 // send the request
 request.send();
+
+/*genreArray.forEach(eachKey => {
+    console.log("this is eachKey: ", eachKey);
+    var eachKeyValue = "%7C" + eachKey;
+
+    console.log("eachKey after adding string: " + eachKeyValue);
+    eachKey.concat()
+    return;
+});*/
+
+// let url = "https://api.themoviedb.org/3/discover/movie?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=16%7C80%7C27%7C10402%7C53&with_runtime.lte=120";
+// %7C stands for | (OR)

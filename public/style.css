@@ -1,16 +1,16 @@
-.body {
-display: flex;
-}
-
 .card {
   width: 15rem;
   height: 40rem;
   display: inline-flex;
-  margin: 0.5rem;
+  margin: 1.0rem;
+  overflow: hidden;
+  font-size: 0.9rem;
 };
 
-.card-text {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+.card-title {
+  font-size: 1.0rem;
+};
+
+.form-options {
+
 }

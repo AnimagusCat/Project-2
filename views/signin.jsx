@@ -14,7 +14,7 @@ class signIn extends React.Component {
                   <form method="POST" action="/signin">
                     <div>Username: <input type="text" name="username" required/></div>
                     <br />
-                    <div>Password: <input type="text" name="password" required/></div>
+                    <div>Password: <input type="password" name="password" required/></div>
                     <br />
 
                     <button type="submit" value="submit">Submit</button>

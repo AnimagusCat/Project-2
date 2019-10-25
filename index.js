@@ -84,8 +84,32 @@ app.get('/signin', (request, response) => {
 
 ///////////VERIFY SIGN IN DETAILS/////////////
 app.post('/signin', (request, response) => {
-  console.log('on signin route');
-  response.redirect("/home");
+  let username = [request.body.username];
+  console.log ("the username is: " + username);
+  let hashedPassword = sha256(request.body.password + SALT);
+  console.log("hashed entered password: " + hashedPassword);
+
+  const queryString = `SELECT * FROM users WHERE username = $1`;
+
+  pool.query(queryString, username, (err, result) => {
+    console.log("this is the result", result);
+    console.log("this is the result.rows", result.rows);
+    if (err) {
+      console.error("query error:", err.stack);
+      response.send("Error in verifying user. Please try again.");
+    } else {
+      if (hashedPassword === result.rows[0].password) {
+        let user_id = result.rows[0].id;
+        let currentSessionCookie = sha256(user_id + SALT);
+
+        response.cookie('user_id', user_id);
+        response.cookie('loggedIn', currentSessionCookie);
+        response.redirect("/home");
+      } else {
+        response.status(403).send('Wrong password!');
+      };
+    };
+  });
 });
 
 //////////SHOW REGISTER ACCOUNT PAGE//////////
@@ -119,8 +143,32 @@ app.post('/register', (request, response)=>{
 
 //////SHOW USER'S MOVIE LIST///////
 app.get ('/profile', (request, response) => {
-  response.render("profile");
-})
+  let user_id = [request.cookies.user_id];
+  let savedCookie = request.cookies.loggedIn;
+
+  const queryUsers = `SELECT * FROM users WHERE id = $1`;
+  const queryMovieList = `SELECT * FROM movielist WHERE users_id = $1`;
+
+  if (savedCookie === undefined) {
+  reponse.send ("You need to be logged in to view this page!")
+  } else {
+    pool.query(queryUsers, user_id, (err, result) => {
+      if (err) {
+        console.error("query error:", err.stack);
+        response.send("Error in fetching user profile. Please try again.");
+      } else {
+          pool.query(queryMovieList, user_id, (err, result) => {
+            data = {
+                movies: result.movieid,
+                watched: result.watched,
+                fav: result.favourite
+            };
+          });
+          response.render("profile");
+        };
+    });
+  }
+});
 
 //////ADD MOVIE TO USER'S MOVIE LIST//////
 app.post('/profile', (request, response) => {
@@ -130,8 +178,21 @@ app.post('/profile', (request, response) => {
 /**********************************************************/
 //////////////////////PORT DETAILS//////////////////////////
 /**********************************************************/
+const server = app.listen(5000, () => console.log('~~~ Tuning in to the waves of port 5000 ~~~'));
 
-const port = 5000;
+let onClose = function(){
+  console.log("closing");
+
+  server.close(() => {
+    console.log('Process terminated');
+    pool.end( () => console.log('Shut down db connection pool'));
+  })
+};
+
+process.on('SIGTERM', onClose);
+process.on('SIGINT', onClose);
+
+/*const port = 5000;
 console.log("start listening");
 app.listen(port)
-console.log("done listening");
+console.log("done listening");*/
