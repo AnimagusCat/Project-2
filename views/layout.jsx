@@ -13,7 +13,7 @@ class Layout extends React.Component {
           ></link>
         </head>
         <body>
-            <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+            <nav className="navbar navbar-expand-md navbar-dark" style={{backgroundColor: '#63000f'}}>
                 <a href="/home" className="navbar-brand">showMe.</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar7">
                     <span className="navbar-toggler-icon"></span>

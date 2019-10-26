@@ -1,16 +1,26 @@
-.card {
+/*body {
+	background-color: #000000;
+	color: white;
+};*/
+
+/*.card {
   width: 15rem;
   height: 40rem;
   display: inline-flex;
   margin: 1.0rem;
   overflow: hidden;
   font-size: 0.9rem;
-};
+};*/
 
-.card-title {
+/*.card-title {
   font-size: 1.0rem;
+};*/
+
+.card {
+	max-width: 30rem;
+	max-height: 15rem;
+	display: inline-flex;
+  margin: 1.0rem;
+  /*overflow: text-truncate;*/
+  font-size: 0.9rem;
 };
-
-.form-options {
-
-}

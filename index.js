@@ -44,7 +44,7 @@ var SALT = "m0v3355!1!";
 //////////////SHOW LIST OF QUESTIONS////////////
 app.get('/home', (request, response) => {
   console.log('on home route');
-  response.render('firstQuestion');
+  response.render('home');
 });
 
 //////////////SUBMIT THE FORM & GET VALUES FOR URL/////////////
@@ -150,7 +150,7 @@ app.get ('/profile', (request, response) => {
   const queryMovieList = `SELECT * FROM movielist WHERE users_id = $1`;
 
   if (savedCookie === undefined) {
-  reponse.send ("You need to be logged in to view this page!")
+  response.send ("You need to be logged in to view this page!")
   } else {
     pool.query(queryUsers, user_id, (err, result) => {
       if (err) {
