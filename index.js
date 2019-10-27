@@ -41,6 +41,11 @@ var SALT = "m0v3355!1!";
 ////////////////////////////ROUTES//////////////////////////
 /**********************************************************/
 
+///////SHOW ABOUT PAGE////////
+app.get('/about', (request, response) => {
+  response.render('about');
+});
+
 //////////////SHOW LIST OF QUESTIONS////////////
 app.get('/home', (request, response) => {
   console.log('on home route');
@@ -53,11 +58,11 @@ app.post('/recommend', (request, response) => {
 
   let mood = request.body.mood;
   switch (mood) {
-    case "happy": genre = [16, 80, 27, 10402, 53];
+    case "happy": genre = [99, 27, 10402, 53];
     break;
-    case "sad": genre = [35, 99, 18, 36, 10749, 10770];
+    case "sad": genre = [16, 35, 18, 36, 10749, 10770];
     break;
-    case "angry": genre = [28, 10751, 10752];
+    case "angry": genre = [80, 28, 10751, 10752];
     break;
     case "meh": genre = [12, 14, 9648, 878];
     break;

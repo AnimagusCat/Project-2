@@ -11,81 +11,67 @@ class Home extends React.Component {
                 <body>
                 <div className="container mt-4 text-center">
                   <br />
-
                     <h1 className="display-4">No idea what movie to watch?</h1>
                     <p className="lead">Let us recommend some specially for you!</p>
-                    <p className="lead">
-                    <a className="btn btn-warning btn-lg" href="#" role="button">Start</a>
-                    </p>
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <h3>Trending this week</h3>
-
-                <div id="multi-item-example" className="carousel slide carousel-multi-item" data-ride="carousel">
-
-                <div className="controls-top">
-                    <a className="btn-floating" href="#multi-item-example" data-slide="prev"><i className="fa fa-chevron-left"></i></a>
-                    <a className="btn-floating" href="#multi-item-example" data-slide="next"><i className="fa fa-chevron-right"></i></a>
+                <div>
+                  <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#firstQ" aria-expanded="false" aria-controls="firstQ" style={{padding: "10px 50px", fontWeight: "bold"}}>
+                    Explore
+                  </button>
                 </div>
+                <br />
 
-                <ol className="carousel-indicators">
-                    <li data-target="#multi-item-example" data-slide-to="0" class="active"></li>
-                    <li data-target="#multi-item-example" data-slide-to="1"></li>
-                    <li data-target="#multi-item-example" data-slide-to="2"></li>
-                </ol>
+                <div class="collapse" id="firstQ">
+                  <div class="card card-body">
 
-                <div className="carousel-inner" role="listbox">
-
-                <div className="carousel-item active">
-
-                <div className="row">
-                    <div className="col-md-4">
-                      <div className="card mb-2">
-                        <img className="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg"
-                          alt="Card image cap"/>
-                        <div className="card-body">
-                          <a className="btn btn-primary">Button</a>
-                        </div>
-                      </div>
+                     <form method="POST" action="/recommend" id="form">
+                     <h5>How are you feeling now?</h5>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="mood" id="m1" value="happy"/>
+                      <label class="form-check-label" for="m1">Happy</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="mood" id= "m2" value="sad"/>
+                      <label class="form-check-label" for="m2">Sad</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="mood" id= "m3" value="angry"/>
+                      <label class="form-check-label" for="m3">Angry</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="mood" id= "m4" value="meh"/>
+                      <label class="form-check-label" for="m4">Meh</label>
                     </div>
 
-                    <div className="col-md-4 clearfix d-none d-md-block">
-                      <div className="card mb-2">
-                        <img className="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg"
-                          alt="Card image cap"/>
-                        <div className="card-body">
-                          <a className="btn btn-primary">Button</a>
-                        </div>
-                      </div>
+                    <br />
+                    <br />
+                    <h5>How much time can you spare?</h5>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="time" id="t1" value="60" defaultChecked/>
+                      <label class="form-check-label" for="t1">Less than 1 hour</label>
                     </div>
 
-                    <div className="col-md-4 clearfix d-none d-md-block">
-                      <div className="card mb-2">
-                        <img className="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg"
-                          alt="Card image cap"/>
-                        <div className="card-body">
-                          <a className="btn btn-primary">Button</a>
-                        </div>
-                      </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="time" id="t2" value="120"/>
+                      <label class="form-check-label" for="t2">1 - 2 hours</label>
                     </div>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="time" id="t3" value="240"/>
+                      <label class="form-check-label" for="t3">More than 2 hours</label>
+                    </div>
+                    <br />
+                    <br />
+                    <button type= "submit" value= "submit">Submit</button>
+                    </form>
+
+
+
+
                   </div>
-
+                </div>
                 </div>
 
-      </div>
-
-
-    </div>
-
-
-
-
-                </div>
                 </body>
-
               </html>
     );
   }

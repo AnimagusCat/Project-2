@@ -17,22 +17,18 @@ var createMovieDetails = function() {
     keyArray.forEach(movie => {
         const card = document.createElement('div');
         card.setAttribute('class', 'card mb-3');
-        //card.textContent = "this is the card";
 
         const row = document.createElement('div');
         row.setAttribute('class', 'row no-gutters');
-        //row.textContent = "this is the row";
 
         const col4 = document.createElement('div');
         col4.setAttribute('class', 'col-md-4');
-        //col4.textContent = "this is the col-4";
 
         const img = document.createElement("img");
         let baseURL = "https://image.tmdb.org/t/p/w342";
         let poster = movie.poster_path;
         img.setAttribute('class', 'card-img');
         img.src = "".concat(baseURL, poster);
-        //img src = "text.img";
 
         const col8 = document.createElement('div');
         col8.setAttribute('class', 'col-md-8');
@@ -68,38 +64,6 @@ var createMovieDetails = function() {
         cardBody.appendChild(p);
         cardBody.appendChild(a);
 
-        //vertical cards
-        /*const card = document.createElement('div');
-        card.setAttribute('class', 'card');
-
-        const img = document.createElement("img");
-        let baseURL = "https://image.tmdb.org/t/p/w342";
-        let poster = movie.poster_path;
-        img.setAttribute('class', 'card-img-top');
-        img.src = "".concat(baseURL, poster);
-
-        const cardBody = document.createElement('div');
-        cardBody.setAttribute('class', 'card-body h-100');
-
-        const h5 = document.createElement('h5');
-        h5.setAttribute('class', 'card-title');
-        h5.textContent = movie.title;
-
-        const pRating = document.createElement('h6');
-        pRating.setAttribute('class', 'card-subtitle mb-2 text-muted');
-        pRating.textContent = movie.vote_average;
-
-        const pOverview = document.createElement('p');
-        pOverview.setAttribute('class', 'card-text text-left');
-        pOverview.textContent = movie.overview;
-
-        const container = document.getElementsByClassName("container");
-        container[0].appendChild(card);
-        card.appendChild(img);
-        card.appendChild(cardBody);
-        cardBody.appendChild(h5);
-        cardBody.appendChild(pRating);
-        cardBody.appendChild(pOverview);*/
     });
   } else {
       reponse.send("Error fetching movie data");
@@ -131,15 +95,6 @@ request.open("GET", url);
 
 // send the request
 request.send();
-
-/*genreArray.forEach(eachKey => {
-    console.log("this is eachKey: ", eachKey);
-    var eachKeyValue = "%7C" + eachKey;
-
-    console.log("eachKey after adding string: " + eachKeyValue);
-    eachKey.concat()
-    return;
-});*/
 
 // let url = "https://api.themoviedb.org/3/discover/movie?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=16%7C80%7C27%7C10402%7C53&with_runtime.lte=120";
 // %7C stands for | (OR)
