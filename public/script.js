@@ -38,6 +38,7 @@ var createMovieDetails = function() {
 
         const h5 = document.createElement('h5');
         h5.setAttribute('class', 'card-title');
+        h5.style.cssText = "font-size: 1.1rem;";
         h5.textContent = movie.title;
 
         const h6 = document.createElement('h6');
@@ -45,11 +46,17 @@ var createMovieDetails = function() {
         h6.textContent = movie.vote_average;
 
         const p = document.createElement('p');
-        p.setAttribute('class', 'card-text text-left text-truncate');
-        p.textContent = movie.overview;
+        p.setAttribute('class', 'card-text text-left');
+        p.style.cssText = "font-size: 0.9rem;";
+        let movieDescription = movie.overview.substring(0, 160);
+        p.textContent = `${movieDescription}...`;
+
+        const div = document.createElement('div');
+        div.setAttribute('class', 'link-box');
 
         const a = document.createElement('a');
-        a.href = "http://thefair.com/";
+        let urlId = movie.id;
+        a.href = "".concat("/movie/", movie.id);
         a.textContent = "See more info";
 
         const container = document.getElementsByClassName("container");
@@ -62,7 +69,8 @@ var createMovieDetails = function() {
         cardBody.appendChild(h5);
         cardBody.appendChild(h6);
         cardBody.appendChild(p);
-        cardBody.appendChild(a);
+        cardBody.appendChild(div);
+        div.appendChild(a);
 
     });
   } else {

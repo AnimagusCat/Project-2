@@ -29,6 +29,9 @@ class Layout extends React.Component {
                             <a className="nav-link" href="/home">Home</a>
                         </li>
                         <li className="nav-item">
+                            <a className="nav-link" href="/profile">Profile</a>
+                        </li>
+                        <li className="nav-item">
                             <a className="nav-link" href="/signin">Sign In</a>
                         </li>
                     </ul>

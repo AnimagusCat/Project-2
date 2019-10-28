@@ -52,17 +52,17 @@ app.get('/home', (request, response) => {
   response.render('home');
 });
 
-//////////////SUBMIT THE FORM & GET VALUES FOR URL/////////////
+//////////////SUBMIT THE FORM & SHOW RECOMMEND PAGE/////////////
 app.post('/recommend', (request, response) => {
   console.log("this is request.body" , request.body);
 
   let mood = request.body.mood;
   switch (mood) {
-    case "happy": genre = [99, 27, 10402, 53];
+    case "happy": genre = [99, 27, 53, 10751];
     break;
     case "sad": genre = [16, 35, 18, 36, 10749, 10770];
     break;
-    case "angry": genre = [80, 28, 10751, 10752];
+    case "angry": genre = [80, 28, 10402 , 10752];
     break;
     case "meh": genre = [12, 14, 9648, 878];
     break;
@@ -80,6 +80,25 @@ app.post('/recommend', (request, response) => {
 
   response.render('recommend', urlData);
 });
+
+//////SHOW INDIVIDUAL MOVIE PAGE/////
+app.get('/movie/:id', (request, response) => {
+    let inputId = parseInt( request.params.id );
+    console.log("this is the inputId: ", inputId );
+
+    let movie = {
+        id: inputId
+    };
+
+    console.log("this is movie object: ", movie);
+    response.render('movieid', movie);
+  });
+
+
+
+
+
+
 
 /////////////SHOW SIGN IN PAGE//////////////
 app.get('/signin', (request, response) => {

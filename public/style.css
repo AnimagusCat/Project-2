@@ -11,3 +11,7 @@
   /*overflow: text-truncate;*/
   font-size: 0.9rem;
 };
+
+.year {
+	text-align: left;
+}
