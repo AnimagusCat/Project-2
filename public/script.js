@@ -59,6 +59,11 @@ var createMovieDetails = function() {
         a.href = "".concat("/movie/", movie.id);
         a.textContent = "See more info";
 
+        const plusImg = document.createElement('img');
+        plusImg.setAttribute('class', 'addIcon');
+        plusImg.src = "images/plus.png";
+        plusImg.style.cssText = "width: 10%;";
+
         const container = document.getElementsByClassName("container");
         container[0].appendChild(card);
         card.appendChild(row);
@@ -71,11 +76,39 @@ var createMovieDetails = function() {
         cardBody.appendChild(p);
         cardBody.appendChild(div);
         div.appendChild(a);
+        col4.appendChild(plusImg);
 
     });
+
+/////ADD EVENT LISTENER TO PLUS BUTTON/////
+  const targetButton = document.getElementsByClassName('addIcon');
+  const numTargetButton = targetButton.length;
+
+  function checkAdd(movieId){
+    console.log("movieId" + movieId +"added!");
+  };
+
+  for (var i = 0; i < numTargetButton; i++) {
+    targetButton[i].addEventListener('click', checkAdd, false);
+  };
+
+  /////WHEN USER HOVERS OVER CARD BODY, ADD ICON WILL POP UP/////
+  /*const targetArea = document.getElementsByClassName('card-body');
+  const numTargetArea = targetArea.length;
+
+  function addPopUp() {
+    console.log("POP UP APPEARS");
+  };
+
+  for (var i = 0; i < numTargetArea; i++) {
+    targetArea[i].addEventListener('mouseenter', addPopUp, false);
+  };*/
+
   } else {
       reponse.send("Error fetching movie data");
   };
+
+
 };
 
 /////send new HTTP request/////

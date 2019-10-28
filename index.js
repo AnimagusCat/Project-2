@@ -183,12 +183,18 @@ app.get ('/profile', (request, response) => {
       } else {
           pool.query(queryMovieList, user_id, (err, result) => {
             data = {
-                movies: result.movieid,
-                watched: result.watched,
-                fav: result.favourite
+                movieId: result.rows[0].movieid,
+                title: result.rows[0].movietitle,
+                poster: result.rows[0].posterimage,
+                rating: result.rows[0].movierating,
+                watched: result.rows[0].watched,
+                favourite: result.rows[0].favourite
             };
+            console.log("this is the data: ", data);
+            //response.send(data);
+          response.render("profile", data);
           });
-          response.render("profile");
+
         };
     });
   }
