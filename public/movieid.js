@@ -135,11 +135,24 @@ var individualMovie = function() {
     });
 
     /////FOR THE SECOND TAB 'TRAILER'/////
-    const trailerTab = document.getElementById("nav-trailer");
 
 
+    if (movieDetails.videos.results.length === 0){
+      document.getElementById("trailer").style.display = "none";
+      const errorMsg = document.createElement('h6');
+      errorMsg.textContent = "Sorry, trailer is not available for this title";
+      const trailerTab = document.getElementById("nav-trailer");
+      trailerTab.appendChild(errorMsg);
+    } else {
+        const trailer = document.getElementById("trailer");
+        console.log("trailer element: ", trailer);
 
-
+        let baseTrailerURL = "https://www.youtube.com/embed/";
+        let movieTrailerId = movieDetails.videos.results[0].key;
+        console.log("this is the trailer id: ", movieTrailerId);
+        trailer.src = "".concat(baseTrailerURL, movieTrailerId);
+        console.log("this is the trailer url: ", trailer.src);
+    };
   } else {
       reponse.send("Error fetching movie data");
   };
@@ -155,7 +168,7 @@ request.addEventListener("load", individualMovie);
 console.log("Movie ID from the index.js: " , thisMovie.id);
 let thisMovieId = thisMovie.id;
 
-let url = 'https://api.themoviedb.org/3/movie/' + thisMovieId + '?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US';
+let url = 'https://api.themoviedb.org/3/movie/' + thisMovieId + '?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&append_to_response=videos';
 
 request.open("GET", url);
 
