@@ -63,7 +63,8 @@ var individualMovie = function() {
     const addCol = document.createElement('div');
     addCol.setAttribute('class', 'col-sm-8 add-icon');
 
-    const plus = document.createElement("img");
+    const plus = document.createElement('input');
+    plus.setAttribute('type', 'image');
     plus.setAttribute('class', 'img-fluid rounded float-right');
     plus.src = "/images/plus.png";
     plus.style.cssText = "width: 7%;";
@@ -134,9 +135,26 @@ var individualMovie = function() {
         return;
     });
 
+    /////ADDS EVENT LISTENER TO PLUS BUTTON//////
+    plus.addEventListener('click', checkAdd, false);
+    function checkAdd(){
+        if (request.cookies === null) {
+            plus.setAttribute('data-toggle', 'popover');
+            plus.setAttribute('data-content', 'You need to be logged in to add movies to your list');
+        } else {
+            const dataToAdd = {
+            movieid: movieDetails.id,
+            movietitle: movieDetails.title,
+            posterimage: movieDetails.poster_path,
+            movierating: movieDetails.vote_average,
+            watched: false,
+            favourite: false,
+            };
+                runAJAX(dataToAdd);
+            };
+        };
+
     /////FOR THE SECOND TAB 'TRAILER'/////
-
-
     if (movieDetails.videos.results.length === 0){
       document.getElementById("trailer").style.display = "none";
       const errorMsg = document.createElement('h6');
@@ -175,38 +193,23 @@ request.open("GET", url);
 // send the request
 request.send();
 
+let runAJAX = function (data) {
+/////send new HTTP request/////
+    var request = new XMLHttpRequest();
+    request.addEventListener("load",function(){
+        console.log(JSON.parse(this.responseText));
+    });
 
-/*const img = document.createElement("img");
-        let baseURL = "https://image.tmdb.org/t/p/w342";
-        let poster = movieDetails.poster_path;
-        //img.setAttribute('class', 'card-img');
-        img.src = "".concat(baseURL, poster);
-        console.log(img.src);
+    let url = '/profile';
 
-        const col8 = document.createElement('div');
-        col8.setAttribute('class', 'col-md-8');
+    request.open("POST", url);
 
-        const cardBody = document.createElement('div');
-        cardBody.setAttribute('class', 'card-body');
-
-        const h5 = document.createElement('h5');
-        h5.setAttribute('class', 'card-title');
-        h5.textContent = "POSTER GOES HERE";
-
-        const h6 = document.createElement('h6');
-        h6.setAttribute('class', 'card-subtitle mb-2 text-muted');
-        h6.textContent = movie.vote_average;
-
-        const p = document.createElement('p');
-        p.setAttribute('class', 'card-text text-left');
-        p.style.cssText = "font-size: 0.9rem;";
-        let movieDescription = movie.overview.substring(0, 160);
-        p.textContent = `${movieDescription}...`;
-
-        const div = document.createElement('div');
-        div.setAttribute('class', 'link-box');
-
-        const a = document.createElement('a');
-        let urlId = movie.id;
-        a.href = "".concat("/movie/", movie.id);
-        a.textContent = "See more info";*/
+    request.setRequestHeader("Content-type", "application/json;charset=UTF-8")
+    console.log("HEREEEEEE")
+    console.log(data);
+    let something = {
+        data:data
+    }
+    // send the request
+    request.send(JSON.stringify(something));
+}
