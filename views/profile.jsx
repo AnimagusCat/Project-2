@@ -15,16 +15,21 @@ class Profile extends React.Component {
             <img src= {`https://image.tmdb.org/t/p/w342/${movieItem.posterimage}`} class="card-img" alt="poster image"/>
           </div>
         <div className="col-md-8">
-          <div className="card-body">
-            <h5 className="card-title">{movieItem.movietitle}</h5>
-            <p className="card-text">Rating: {movieItem.movierating}</p>
-            <p className="card-text">Watched: {movieItem.watched}</p>
-            <p className="card-text">Favourite: {movieItem.favourite}</p>
-            <a href={`/movie/${movieItem.movieid}`}>See more info</a>
-          </div>
+            <div className="card-body">
+                <h5 className="card-title">{movieItem.movietitle}</h5>
+
+                <h6 className="card-text">{movieItem.movierating}</h6>
+
+                <a href={`/movie/${movieItem.movieid}`}>See more info</a>
+                <div className="icons d-flex justify-content-around" style={{paddingTop: "20%"}}>
+                    <input type="image" src="/images/check-mark.png" alt="check mark" width="30px"/>
+                    <input type="image" src="/images/heart.png" alt="empty heart" width="30px"/>
+                    <input type="image" src="/images/delete.png" alt="delete" width="24px"/>
+                </div>
+            </div>
         </div>
         </div>
-      </div>;
+      </div>
     });
 
     let errorMsg = "";
@@ -49,7 +54,7 @@ class Profile extends React.Component {
                     {movies}
                   </div>
                 </body>
-
+                <script src="/updateProfile.js"></script>
               </html>
     );
   }

@@ -26,7 +26,7 @@ class Home extends React.Component {
                      <form method="POST" action="/recommend" id="form">
                      <h5>How are you feeling now?</h5>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="mood" id="m1" value="happy"/>
+                      <input class="form-check-input" type="radio" name="mood" id="m1" value="happy" defaultChecked/>
                       <label class="form-check-label" for="m1">Happy</label>
                     </div>
                     <div class="form-check form-check-inline">

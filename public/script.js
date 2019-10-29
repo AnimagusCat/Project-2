@@ -59,10 +59,16 @@ var createMovieDetails = function() {
         a.href = "".concat("/movie/", movie.id);
         a.textContent = "See more info";
 
-        const plusImg = document.createElement('img');
+
+        const plusSubmit = document.createElement('input');
+        plusSubmit.setAttribute('type', 'image');
+        plusSubmit.src = "images/plus.png";
+        plusSubmit.style.cssText = "width: 10%;";
+
+        /*const plusImg = document.createElement('img');
         plusImg.setAttribute('class', 'addIcon');
         plusImg.src = "images/plus.png";
-        plusImg.style.cssText = "width: 10%;";
+        plusImg.style.cssText = "width: 10%;";*/
 
         const container = document.getElementsByClassName("container");
         container[0].appendChild(card);
@@ -76,12 +82,31 @@ var createMovieDetails = function() {
         cardBody.appendChild(p);
         cardBody.appendChild(div);
         div.appendChild(a);
-        col4.appendChild(plusImg);
+        //col4.appendChild(plusImg);
+        col4.appendChild(plusSubmit);
 
+        plusSubmit.addEventListener('click', checkAdd, false);
+        function checkAdd(){
+            if (request.cookies === null) {
+                plusSubmit.setAttribute('data-toggle', 'popover');
+                plusSubmit.setAttribute('data-content', 'You need to be logged in to add movies to your list');
+            } else {
+                const dataToAdd = {
+                movieid: movie.id,
+                movietitle: movie.title,
+                posterimage: movie.poster_path,
+                movierating: movie.vote_average,
+                watched: false,
+                favourite: false,
+            };
+                runAJAX(dataToAdd);
+            };
+        };
     });
 
+
 /////ADD EVENT LISTENER TO PLUS BUTTON/////
-  const targetButton = document.getElementsByClassName('addIcon');
+  /*const targetButton = document.getElementsByClassName('addIcon');
   const numTargetButton = targetButton.length;
 
   function checkAdd(movieId){
@@ -90,7 +115,7 @@ var createMovieDetails = function() {
 
   for (var i = 0; i < numTargetButton; i++) {
     targetButton[i].addEventListener('click', checkAdd, false);
-  };
+  };*/
 
   /////WHEN USER HOVERS OVER CARD BODY, ADD ICON WILL POP UP/////
   /*const targetArea = document.getElementsByClassName('card-body');
@@ -137,5 +162,23 @@ request.open("GET", url);
 // send the request
 request.send();
 
-// let url = "https://api.themoviedb.org/3/discover/movie?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=16%7C80%7C27%7C10402%7C53&with_runtime.lte=120";
-// %7C stands for | (OR)
+let runAJAX = function (data) {
+    /////send new HTTP request/////
+    var request = new XMLHttpRequest();
+    request.addEventListener("load",function(){
+        console.log(JSON.parse(this.responseText));
+    });
+
+    let url = '/profile';
+
+    request.open("POST", url);
+
+    request.setRequestHeader("Content-type", "application/json;charset=UTF-8")
+    console.log("HEREEEEEE")
+    console.log(data);
+    let something = {
+        data:data
+    }
+    // send the request
+    request.send(JSON.stringify(something));
+}

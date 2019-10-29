@@ -54,8 +54,8 @@ app.get('/home', (request, response) => {
 
 //////////////SUBMIT THE FORM & SHOW RECOMMEND PAGE/////////////
 app.post('/recommend', (request, response) => {
-  console.log("this is request.body" , request.body);
-
+  //console.log("this is request.body" , request.body);
+  console.log('On recommend route');
   let mood = request.body.mood;
   switch (mood) {
     case "happy": genre = [99, 27, 53, 10751];
@@ -75,8 +75,8 @@ app.post('/recommend', (request, response) => {
     runtimeKey: time
   };
 
-  console.log("the genre: ", urlData.genreKey);
-  console.log("the duration: ", urlData.runtimeKey);
+  //console.log("the genre: ", urlData.genreKey);
+  //console.log("the duration: ", urlData.runtimeKey);
 
   response.render('recommend', urlData);
 });
@@ -93,12 +93,6 @@ app.get('/movie/:id', (request, response) => {
     console.log("this is movie object: ", movie);
     response.render('movieid', movie);
   });
-
-
-
-
-
-
 
 /////////////SHOW SIGN IN PAGE//////////////
 app.get('/signin', (request, response) => {
@@ -195,7 +189,34 @@ app.get ('/profile', (request, response) => {
 
 //////ADD MOVIE TO USER'S MOVIE LIST//////
 app.post('/profile', (request, response) => {
+  console.log("this is request.body.data: ", request.body.data);
+  let user_id = request.cookies.user_id;
+  console.log("this is the user_id: ", user_id);
+  let savedCookie = request.cookies.loggedIn;
 
+  let movieid = request.body.data.movieid;
+  let movietitle = request.body.data.movietitle;
+  let posterimage = request.body.data.posterimage;
+  let movierating = request.body.data.movierating;
+  let watched = request.body.data.watched;
+  let favourite = request.body.data.favourite;
+
+  if (savedCookie === undefined) {
+    response.send ("You need to be logged in to view this page!")
+  } else {
+      let values = [user_id, movieid, movietitle, posterimage, movierating, watched, favourite];
+      const queryString = `INSERT INTO movielist (users_id, movieid, movietitle, posterimage, movierating, watched, favourite) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+
+      pool.query(queryString, values, (err, result) => {
+        console.log(values);
+        if (err) {
+          console.error("query error:", err.stack);
+          response.send("Oh no! Error in adding to list. Please try again.");
+        } else {
+            response.send(result);
+          }
+      });
+  }
 })
 
 /**********************************************************/
