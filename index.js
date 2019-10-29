@@ -182,17 +182,10 @@ app.get ('/profile', (request, response) => {
         response.send("Error in fetching user profile. Please try again.");
       } else {
           pool.query(queryMovieList, user_id, (err, result) => {
-            data = {
-                movieId: result.rows[0].movieid,
-                title: result.rows[0].movietitle,
-                poster: result.rows[0].posterimage,
-                rating: result.rows[0].movierating,
-                watched: result.rows[0].watched,
-                favourite: result.rows[0].favourite
+            const movieList = {
+                list: result.rows
             };
-            console.log("this is the data: ", data);
-            //response.send(data);
-          response.render("profile", data);
+          response.render("profile", movieList);
           });
 
         };
