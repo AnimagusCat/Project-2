@@ -5,14 +5,14 @@ class Profile extends React.Component {
 
   render() {
 
-    console.log("this is this.props: ", this.props);
-    console.log("this is this.props.list: ", this.props.list);
+    //console.log("this is this.props: ", this.props);
+    //console.log("this is this.props.list: ", this.props.list);
 
     const movies = this.props.list.map (movieItem => {
       return <div className="card mb-3" style={{maxWidth: "540px"}}>
         <div className="row no-gutters">
           <div className="col-md-4">
-            <img src= {`https://image.tmdb.org/t/p/w342/${movieItem.posterimage}`} class="card-img" alt="poster image"/>
+            <img src= {`https://image.tmdb.org/t/p/w342/${movieItem.posterimage}`} className="card-img" alt="poster image"/>
           </div>
         <div className="col-md-8">
             <div className="card-body">
@@ -22,9 +22,9 @@ class Profile extends React.Component {
 
                 <a href={`/movie/${movieItem.movieid}`}>See more info</a>
                 <div className="icons d-flex justify-content-around" style={{paddingTop: "20%"}}>
-                    <input type="image" src="/images/check-mark.png" alt="check mark" width="30px"/>
-                    <input type="image" src="/images/heart.png" alt="empty heart" width="30px"/>
-                    <input type="image" src="/images/delete.png" alt="delete" width="24px"/>
+                    <input type="image" src="/images/check-mark.png" alt="check mark" className="check" width="30px" value={movieItem.movieid}/>
+                    <input type="image" src="/images/heart.png" alt="empty heart" className="heart" width="30px" value={movieItem.movieid}/>
+                    <input type="image" src="/images/delete.png" alt="delete" className="cross" width="24px" value={movieItem.movieid}/>
                 </div>
             </div>
         </div>

@@ -179,6 +179,7 @@ app.get ('/profile', (request, response) => {
             const movieList = {
                 list: result.rows
             };
+            console.log("this is movieList in INDEX: ", movieList);
           response.render("profile", movieList);
           });
 
@@ -217,6 +218,29 @@ app.post('/profile', (request, response) => {
           }
       });
   }
+});
+
+//////UPDATE USER'S MOVIELIST INFO FOR WATCHED, FAV AND DELETE/////
+app.put('/profile', (request, response) => {
+  let user_id = request.cookies.user_id;
+  console.log("this is the request.body: ", request.body);
+
+  //const queryString = `SELECT * FROM movielist WHERE users_id = $1 AND movieid = $2`;
+
+  const queryString = `UPDATE movielist SET watched = $1 WHERE users_id = $2 AND movieid = $3`;
+
+      pool.query(queryString, values, (err, result) => {
+        console.log(values);
+        if (err) {
+          console.error("query error:", err.stack);
+          response.send("Oh no! Error in adding to list. Please try again.");
+        } else {
+            response.send(result);
+          }
+      });
+
+
+
 })
 
 /**********************************************************/
