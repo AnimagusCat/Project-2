@@ -269,7 +269,12 @@ app.put('/profile', (request, response) => {
 /**********************************************************/
 //////////////////////PORT DETAILS//////////////////////////
 /**********************************************************/
-const server = app.listen(5000, () => console.log('~~~ Tuning in to the waves of port 5000 ~~~'));
+const PORT = process.env.PORT || 3000;
+
+const server = app.listen(PORT, () => console.log('~~~ Tuning in to the waves of port '+PORT+' ~~~'));
+
+
+//const server = app.listen(5000, () => console.log('~~~ Tuning in to the waves of port 5000 ~~~'));
 
 let onClose = function(){
   console.log("closing");
