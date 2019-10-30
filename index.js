@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const url = require('url');
+
 
 app.use(express.static('public'))
 
@@ -14,13 +16,34 @@ app.use(express.urlencoded({
   extended: true
 }));
 
-// Initialise postgres client
-const configs = {
-  user: 'syahirah',
-  host: '127.0.0.1',
-  database: 'project2',
-  port: 5432,
-};
+//check to see if we have this heroku environment variable
+if( process.env.DATABASE_URL ){
+
+  //we need to take apart the url so we can set the appropriate configs
+
+  const params = url.parse(process.env.DATABASE_URL);
+  const auth = params.auth.split(':');
+
+  //make the configs object
+  var configs = {
+    user: auth[0],
+    password: auth[1],
+    host: params.hostname,
+    port: params.port,
+    database: params.pathname.split('/')[1],
+    ssl: true
+  };
+
+}else{
+
+    // Initialise postgres client
+    const configs = {
+      user: 'syahirah',
+      host: '127.0.0.1',
+      database: 'project2',
+      port: 5432,
+    };
+}
 
 const pg = require('pg');
 const pool = new pg.Pool(configs);
