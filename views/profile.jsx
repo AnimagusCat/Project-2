@@ -22,9 +22,13 @@ class Profile extends React.Component {
 
                 <a href={`/movie/${movieItem.movieid}`}>See more info</a>
                 <div className="icons d-flex justify-content-around" style={{paddingTop: "20%"}}>
-                    <input type="image" src="/images/check-mark.png" alt="check mark" className="check" width="30px" value={movieItem.movieid}/>
-                    <input type="image" src="/images/heart.png" alt="empty heart" className="heart" width="30px" value={movieItem.movieid}/>
-                    <input type="image" src="/images/delete.png" alt="delete" className="cross" width="24px" value={movieItem.movieid}/>
+
+                    <button type="submit" value={movieItem.movieid} style={{backgroundColor: "white", borderStyle: "none"}}><i class='bx bx-check bx-lg'></i></button>
+
+                    <button type="submit" value={movieItem.movieid} style={{backgroundColor: "white", borderStyle: "none"}}><i class='bx bx-heart bx-md'></i></button>
+
+                    <button type="submit" value={movieItem.movieid} style={{backgroundColor: "white", borderStyle: "none"}}><i class='bx bx-x bx-lg'></i></button>
+
                 </div>
             </div>
         </div>
@@ -43,6 +47,7 @@ class Profile extends React.Component {
     return (
               <html>
               <Layout />
+              <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.4/css/boxicons.min.css' rel='stylesheet'/>
               <link rel="stylesheet" href="style.css"/>
                 <body>
                 <div className="container mt-4 text-center">

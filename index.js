@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const url = require('url');
+//const url = require('url');
 
 
 app.use(express.static('public'))
@@ -17,24 +17,24 @@ app.use(express.urlencoded({
 }));
 
 //check to see if we have this heroku environment variable
-if( process.env.DATABASE_URL ){
+// if( process.env.DATABASE_URL ){
 
-  //we need to take apart the url so we can set the appropriate configs
+//   //we need to take apart the url so we can set the appropriate configs
 
-  const params = url.parse(process.env.DATABASE_URL);
-  const auth = params.auth.split(':');
+//   const params = url.parse(process.env.DATABASE_URL);
+//   const auth = params.auth.split(':');
 
-  //make the configs object
-  var configs = {
-    user: auth[0],
-    password: auth[1],
-    host: params.hostname,
-    port: params.port,
-    database: params.pathname.split('/')[1],
-    ssl: true
-  };
+//   //make the configs object
+//   var configs = {
+//     user: auth[0],
+//     password: auth[1],
+//     host: params.hostname,
+//     port: params.port,
+//     database: params.pathname.split('/')[1],
+//     ssl: true
+//   };
 
-}else{
+// }else{
 
     // Initialise postgres client
     const configs = {
@@ -43,7 +43,7 @@ if( process.env.DATABASE_URL ){
       database: 'project2',
       port: 5432,
     };
-}
+//}
 
 const pg = require('pg');
 const pool = new pg.Pool(configs);
@@ -131,10 +131,11 @@ app.post('/signin', (request, response) => {
   console.log("hashed entered password: " + hashedPassword);
 
   const queryString = `SELECT * FROM users WHERE username = $1`;
+  console.log("this is the query string from POST signin: ", queryString);
 
   pool.query(queryString, username, (err, result) => {
     console.log("this is the result", result);
-    console.log("this is the result.rows", result.rows);
+   // console.log("this is the result.rows", result.rows);
     if (err) {
       console.error("query error:", err.stack);
       response.send("Error in verifying user. Please try again.");
