@@ -1,16 +1,66 @@
-/*.container {
-	background-color: #000000;
-	color: white;
-};*/
+body {
+	background-color: #141414;
+	color: #F1E3E4;
+}
+
+.jumbotron {
+  background-image: url("../images/neonB.jpg");
+  background-size: cover;
+  height: 456px;
+}
+
+.jumbotron h1 {
+	font-weight: bold;
+	text-shadow: 5px 5px 5px #000000;
+}
+
+.lead {
+	text-shadow: 5px 5px 5px #000000;
+}
+
+.btn-explore {
+	background-color: #FCA311;
+	color: #141414;
+	font-weight: bold;
+	padding: 10px 30px;
+	font-size: 1em;
+}
+
+.btn-explore:hover {
+	box-shadow: 1px 1px 10px #fdba4e;
+}
+
+#hideButton {
+	display: none;
+}
+
+#qnBoard {
+	display: none;
+}
+
+#showQnBoard {
+	display: block;
+	height: 30vh;
+	width: 50vw;
+	background-color: rgba(241, 227, 228, 0.9);
+	color: #141414;
+	border: 1px solid #fdba4e;
+
+}
+
+
+#firstQn {
+
+}
 
 .card {
 	max-width: 30rem;
-	max-height: 15rem;
+	/*max-height: 15rem;*/
 	display: inline-flex;
   margin: 1.0rem;
   /*overflow: text-truncate;*/
   font-size: 0.9rem;
-};
+}
 
 .year {
 	text-align: left;
