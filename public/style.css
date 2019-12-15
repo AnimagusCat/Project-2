@@ -1,6 +1,16 @@
 body {
 	background-color: #141414;
 	color: #F1E3E4;
+	font-family: 'Lato', sans-serif;
+}
+
+#logo {
+	width: 100px;
+}
+
+.navbar {
+	font-family: 'Oswald', sans-serif;
+	font-size: 1.2em;
 }
 
 .jumbotron {
@@ -12,6 +22,7 @@ body {
 .jumbotron h1 {
 	font-weight: bold;
 	text-shadow: 5px 5px 5px #000000;
+	font-family: 'Oswald', sans-serif;
 }
 
 .lead {
@@ -27,7 +38,13 @@ body {
 }
 
 .btn-explore:hover {
-	box-shadow: 1px 1px 10px #fdba4e;
+	box-shadow: 0px 0px 10px #fdba4e;
+}
+
+.btn-submit {
+	background-color: #FCA311;
+	color: #141414;
+	font-weight: bold;
 }
 
 #hideButton {
@@ -39,17 +56,16 @@ body {
 }
 
 #showQnBoard {
+	padding-top: 1%;
 	display: block;
 	height: 30vh;
 	width: 50vw;
-	background-color: rgba(241, 227, 228, 0.9);
-	color: #141414;
-	border: 1px solid #fdba4e;
-
-}
-
-
-#firstQn {
+	background-color: rgba(38, 38, 38, 0.8);
+	font-weight: bold;
+	text-align: center;
+	color: #F1E3E4;
+	box-shadow: 0px 0px 10px #fdba4e;
+	border: 3px solid #fdba4e;
 
 }
 
@@ -65,3 +81,13 @@ body {
 .year {
 	text-align: left;
 }
+
+@media only screen and (max-width: 700px) {
+
+ 	#showQnBoard {
+ 		height: 40vh;
+ 		width: 80vw;
+ 		font-size: 0.8em;
+ 	}
+
+ }
