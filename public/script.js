@@ -48,7 +48,7 @@ var createMovieDetails = function() {
         const p = document.createElement('p');
         p.setAttribute('class', 'card-text text-left');
         p.style.cssText = "font-size: 0.9rem;";
-        let movieDescription = movie.overview.substring(0, 160);
+        let movieDescription = movie.overview.substring(0, 200);
         p.textContent = `${movieDescription}...`;
 
         const div = document.createElement('div');
@@ -107,14 +107,14 @@ var request = new XMLHttpRequest();
 //// when page has finished loading, run this//////
 request.addEventListener("load", createMovieDetails);
 
-/////THIS URL CHANGES ACCORDING TO FORM'S ANSWERS/////
-console.log("genre from the script.js: " , something.genreKey);
-console.log("time from the script.js: ", something.runtimeKey);
+// console.log("genre from the script.js: " , something.genreKey);
+// console.log("time from the script.js: ", something.runtimeKey);
 
 ////this is an array of genre values//////
 const genreArray = something.genreKey;
-console.log(genreArray);
+// console.log(genreArray);
 
+/////THIS URL CHANGES ACCORDING TO FORM'S ANSWERS/////
 ////this joins all the values in the array and add %7C to the middle values///
 let genreArrayString = genreArray.join("%7C");
 

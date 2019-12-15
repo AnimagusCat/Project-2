@@ -13,7 +13,7 @@ class Recommend extends React.Component {
                 <body>
                 <div className="container mt-4 text-center">
                   <br />
-                  <h2>Your recommended movies</h2>
+                  <h2 id="recommend-title">Your recommended movies</h2>
                   <br />
                 </div>
                 </body>

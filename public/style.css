@@ -1,6 +1,6 @@
 body {
 	background-color: #141414;
-	color: #F1E3E4;
+	color: #FCFCFC;
 	font-family: 'Lato', sans-serif;
 }
 
@@ -61,21 +61,25 @@ body {
 	height: 30vh;
 	width: 50vw;
 	background-color: rgba(38, 38, 38, 0.8);
-	font-weight: bold;
 	text-align: center;
-	color: #F1E3E4;
 	box-shadow: 0px 0px 10px #fdba4e;
 	border: 3px solid #fdba4e;
+}
 
+#recommend-title{
+	font-family: 'Oswald', sans-serif;
 }
 
 .card {
 	max-width: 30rem;
-	/*max-height: 15rem;*/
 	display: inline-flex;
   margin: 1.0rem;
-  /*overflow: text-truncate;*/
   font-size: 0.9rem;
+  color: #141414;
+}
+
+.card-title {
+	font-weight: bold;
 }
 
 .year {
