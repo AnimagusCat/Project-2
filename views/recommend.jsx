@@ -9,7 +9,7 @@ class Recommend extends React.Component {
     return (
               <html>
               <Layout />
-              <link rel="stylesheet" href="style.css"/>
+
                 <body>
                 <div className="container mt-4 text-center">
                   <br />

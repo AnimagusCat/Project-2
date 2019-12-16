@@ -107,13 +107,13 @@ app.post('/recommend', (request, response) => {
 //////SHOW INDIVIDUAL MOVIE PAGE/////
 app.get('/movie/:id', (request, response) => {
     let inputId = parseInt( request.params.id );
-    console.log("this is the inputId: ", inputId );
+    // console.log("this is the inputId: ", inputId );
 
     let movie = {
         id: inputId
     };
 
-    console.log("this is movie object: ", movie);
+    // console.log("this is movie object: ", movie);
     response.render('movieid', movie);
   });
 

@@ -3,15 +3,15 @@ var individualMovie = function() {
   //the responseText is the result from the query in index.js app.get
   //or the data object you specified within the app.get in index.js
   //console.log("response text", JSON.parse(this.responseText));
-  console.log("status text", this.statusText);
-  console.log("status code", this.status);
+  // console.log("status text", this.statusText);
+  // console.log("status code", this.status);
 
   //////the JSON data from URL////////
   var movieDetails = JSON.parse(this.responseText);
-  console.log("this is the full movie details: ", movieDetails);
-  console.log("this is the genre: ", movieDetails.genres);
-  console.log("this is the title: ", movieDetails.title);
-  console.log("this is the overview: ", movieDetails.overview);
+  // console.log("this is the full movie details: ", movieDetails);
+  // console.log("this is the genre: ", movieDetails.genres);
+  // console.log("this is the title: ", movieDetails.title);
+  // console.log("this is the overview: ", movieDetails.overview);
   ////create the movie contents and append to body////
   if (request.status >= 200 && request.status < 400) {
     //////FOR THE FIRST TAB 'DETAILS'////////
@@ -19,7 +19,7 @@ var individualMovie = function() {
     row1.setAttribute('class', 'row');
 
     const posterCol = document.createElement('div');
-    posterCol.setAttribute('class', 'col-sm-5 poster');
+    posterCol.setAttribute('class', 'col-sm-4 poster');
 
     const img = document.createElement("img");
     let baseURL = "https://image.tmdb.org/t/p/w342";
@@ -28,7 +28,7 @@ var individualMovie = function() {
     img.src = "".concat(baseURL, poster);
 
     const detailCol = document.createElement('div');
-    detailCol.setAttribute('class', 'col-sm-7 main');
+    detailCol.setAttribute('class', 'col-sm-8 main');
     detailCol.style.cssText = "text-align: left; height: inherit;";
 
     const row2 = document.createElement('div');

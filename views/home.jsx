@@ -8,7 +8,7 @@ class Home extends React.Component {
     return (
               <html>
               <Layout />
-              <link rel="stylesheet" href="style.css"/>
+
                 <body>
 
                   <div className="jumbotron">
@@ -57,14 +57,7 @@ class Home extends React.Component {
                             <br />
                             <button type= "submit" value= "submit" className="btn btn-submit">Submit</button>
                         </form>
-
-
-
                       </div>
-
-
-
-
 
                   </div>
 
