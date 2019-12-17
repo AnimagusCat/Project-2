@@ -16,7 +16,7 @@ var createMovieDetails = function() {
   if (request.status >= 200 && request.status < 400) {
     keyArray.forEach(movie => {
         const card = document.createElement('div');
-        card.setAttribute('class', 'card mb-3');
+        card.setAttribute('class', 'card mb-3 each-card');
 
         const row = document.createElement('div');
         row.setAttribute('class', 'row no-gutters');

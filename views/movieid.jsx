@@ -25,7 +25,7 @@ class Movie extends React.Component {
                       </div>
 
                       <div className="tab-pane fade" id="nav-trailer" role="tabpanel" aria-labelledby="nav-trailer-tab">
-                        <iframe width="853" height="480" id ="trailer" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="853" height="480" id ="trailer" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                       </div>
                     </div>
                 </div>

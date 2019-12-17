@@ -8,6 +8,15 @@ h5 {
 	font-weight: bold;
 }
 
+a {
+	color: #FCA311;
+}
+
+a:hover {
+	color: #DC9522;
+	text-decoration: underline;
+}
+
 #logo {
 	width: 100px;
 }
@@ -80,14 +89,24 @@ h5 {
   margin: 1.0rem;
   font-size: 0.9rem;
   color: #141414;
+  transition: 1s;
+}
+
+.card:hover {
+	transform: scale(1.05);
 }
 
 .card-title {
+	font-family: 'Oswald', sans-serif;
 	font-weight: bold;
 }
 
 .year {
 	text-align: left;
+}
+
+.nav-item {
+	font-family: 'Oswald', sans-serif;
 }
 
 .tab-content, .tab-pane {
@@ -102,6 +121,7 @@ h5 {
 
 .title h2, .year h2 {
 	font-weight: bold;
+	font-family: 'Oswald', sans-serif;
 }
 
 .vote, .add-icon {
