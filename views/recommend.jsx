@@ -15,6 +15,9 @@ class Recommend extends React.Component {
                   <br />
                   <h2 id="recommend-title">Your recommended movies</h2>
                   <br />
+
+
+
                 </div>
                 </body>
                 <script dangerouslySetInnerHTML={{__html:

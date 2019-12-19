@@ -2,15 +2,15 @@ var createMovieDetails = function() {
   //need to JSON.parse to convert it to an object
   //the responseText is the result from the query in index.js app.get
   //or the data object you specified within the app.get in index.js
-  console.log("response text", JSON.parse(this.responseText));
-  console.log("status text", this.statusText);
-  console.log("status code", this.status);
+  // console.log("response text", JSON.parse(this.responseText));
+  // console.log("status text", this.statusText);
+  // console.log("status code", this.status);
 
   //////the JSON data from URL////////
   var key = JSON.parse(this.responseText);
-  console.log(key);
+  console.log("this is the key", key);
   var keyArray = key.results;
-  console.log(keyArray);
+  console.log("this is the keyArray", keyArray);
 
   ////create the movie contents and append to body////
   if (request.status >= 200 && request.status < 400) {
@@ -96,19 +96,80 @@ var createMovieDetails = function() {
             };
         };
     });
+
+    ////PAGINATION/////
+    const nav = document.createElement('nav');
+    nav.setAttribute('aria-label', 'Search results pages');
+
+    const ul = document.createElement('ul');
+    ul.setAttribute('class', 'pagination');
+
+    const container = document.getElementsByClassName("container");
+    container[0].appendChild(nav);
+    nav.appendChild(ul);
+
+    let currentPage = key.page;
+    let totalPages = key.total_pages;
+    let pageSets = key.total_pages / 5;
+
+    console.log("current page: ", currentPage);
+    console.log("total pages: ", totalPages);
+    console.log("pageSets: ", pageSets)
+
+    for (let i = 0; i < 5; i++) {
+        console.log("page no: ", i+1);
+
+        const page = document.createElement('li');
+        page.setAttribute('class', 'page-item');
+
+        const pageLink = document.createElement('a');
+
+        if (i+1 === currentPage) {
+          pageLink.setAttribute('class', 'active-page');
+          pageLink.textContent = `${i + 1}`;
+        } else {
+            pageLink.setAttribute('class', 'page-link');
+            pageLink.textContent = `${i + 1}`;
+            pageLink.href = `#`;
+        };
+
+        ul.appendChild(page);
+        page.appendChild(pageLink);
+    }
+
+    // const page = document.createElement('li');
+    // page.setAttribute('class', 'page-item');
+
+
+    // const pageLink = document.createElement('a');
+    // pageLink.setAttribute('class', 'page-link');
+    // // pageLink.textContent = '1';
+    // // pageLink.href = `${url}`;
+    // pageLink.addEventListener('click', selectPage, false);
+    // function selectPage(){
+
+    // }
+
+
+
+    // page.appendChild(pageLink);
+
+
   } else {
       reponse.send("Error fetching movie data");
   };
 };
+
+
+/////********************************************************/////
+/////****************HTTP REQUESTS PORTION******************//////
+/////*******************************************************//////
 
 /////send new HTTP request/////
 var request = new XMLHttpRequest();
 
 //// when page has finished loading, run this//////
 request.addEventListener("load", createMovieDetails);
-
-// console.log("genre from the script.js: " , something.genreKey);
-// console.log("time from the script.js: ", something.runtimeKey);
 
 ////this is an array of genre values//////
 const genreArray = something.genreKey;
@@ -127,6 +188,8 @@ request.open("GET", url);
 // send the request
 request.send();
 
+
+/////add movie data to user's profile if plus button is clicked////
 let runAJAX = function (data) {
     /////send new HTTP request/////
     var request = new XMLHttpRequest();
@@ -147,3 +210,7 @@ let runAJAX = function (data) {
     // send the request
     request.send(JSON.stringify(something));
 }
+
+// let changePage = function () {
+
+// }

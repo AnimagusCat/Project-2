@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 //const url = require('url');
-
+require('dotenv').config();
 
 app.use(express.static('public'))
 
@@ -55,10 +55,11 @@ pool.on('error', function (err) {
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
 
-var sha256 = require('js-sha256');
+const sha256 = require('js-sha256');
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
-var SALT = "m0v3355!1!";
+const SALT = process.env.SALT;
+
 
 /***********************************************************/
 ////////////////////////////ROUTES//////////////////////////
