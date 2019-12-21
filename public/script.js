@@ -8,9 +8,9 @@ var createMovieDetails = function() {
 
   //////the JSON data from URL////////
   var key = JSON.parse(this.responseText);
-  console.log("this is the key", key);
+  // console.log("this is the key", key);
   var keyArray = key.results;
-  console.log("this is the keyArray", keyArray);
+  // console.log("this is the keyArray", keyArray);
 
   ////create the movie contents and append to body////
   if (request.status >= 200 && request.status < 400) {
@@ -97,77 +97,31 @@ var createMovieDetails = function() {
         };
     });
 
-    ////PAGINATION/////
-    const nav = document.createElement('nav');
-    nav.setAttribute('aria-label', 'Search results pages');
-
-    const ul = document.createElement('ul');
-    ul.setAttribute('class', 'pagination');
-
-    const container = document.getElementsByClassName("container");
-    container[0].appendChild(nav);
-    nav.appendChild(ul);
-
+    //////////PAGINATION///////////
     let currentPage = key.page;
     let totalPages = key.total_pages;
-    let pageSets = key.total_pages / 5;
 
-    console.log("current page: ", currentPage);
-    console.log("total pages: ", totalPages);
-    console.log("pageSets: ", pageSets)
+    const container = document.getElementsByClassName("container");
 
-    for (let i = 0; i < 5; i++) {
-        console.log("page no: ", i+1);
+    if (currentPage <= totalPages) {
+        const page = document.createElement('p');
+        page.setAttribute('class', 'pagination');
+        page.textContent = 'More';
+        container[0].appendChild(page);
 
-        const page = document.createElement('li');
-        page.setAttribute('class', 'page-item');
+        //when page is clicked, run a new AJAX request
+        page.addEventListener('click', selectPage, false);
+        function selectPage(){
+            let container = document.querySelector('.container');
+            let page = document.querySelector('.pagination');
 
-        const pageLink = document.createElement('a');
+            container.removeChild(page);
 
-        let pageURL = '';
+            const link = 'https://api.themoviedb.org/3/discover/movie?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=' + `${currentPage + 1}` + '&with_genres=' + genreArrayString + '&with_runtime.lte=' + time;
 
-        if (i + 1 === currentPage) {
-          pageLink.setAttribute('class', 'active-page');
-          pageLink.textContent = `${i + 1}`;
-        } else {
-            pageLink.setAttribute('class', 'page-link');
-            pageLink.textContent = `${i + 1}`;
-            // pageLink.href = '';
-
-            //when link is clicked, run a new AJAX request
-            pageLink.addEventListener('click', selectPage, false);
-            function selectPage(){
-                console.log("page clicked!");
-                const page = 'https://api.themoviedb.org/3/discover/movie?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=' + `${i + 1}` + '&with_genres=' + genreArrayString + '&with_runtime.lte=' + time;
-
-                console.log("page url in click event: ", page);
-                changePage(page);
-            }
-        };
-
-
-        ul.appendChild(page);
-        page.appendChild(pageLink);
-
-
+            changePage(link);
+        }
     }
-
-    //next link
-    const next = document.createElement('li');
-    next.setAttribute('class', 'page-item');
-    const pageLink = document.createElement('a');
-    pageLink.setAttribute('class', 'page-link');
-    pageLink.textContent = `Next`;
-    pageLink.href = 'https://api.themoviedb.org/3/discover/movie?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=' + `${currentPage + 1}` + '&with_genres=' + genreArrayString + '&with_runtime.lte=' + time;
-
-    ul.appendChild(next);
-    next.appendChild(pageLink);
-
-
-
-
-
-
 
   } else {
       reponse.send("Error fetching movie data");
@@ -187,7 +141,6 @@ request.addEventListener("load", createMovieDetails);
 
 ////this is an array of genre values//////
 const genreArray = something.genreKey;
-// console.log(genreArray);
 
 /////THIS URL CHANGES ACCORDING TO FORM'S ANSWERS/////
 ////this joins all the values in the array and add %7C to the middle values///
@@ -225,13 +178,13 @@ let runAJAX = function (data) {
     request.send(JSON.stringify(something));
 }
 
-function changePage(page){
+/////AJAX to fetch next page data/////
+function changePage(link){
     var request = new XMLHttpRequest();
 
     request.addEventListener("load", createMovieDetails);
 
-    console.log('page info in changePage: ', page);
-    let url = page;
+    let url = link;
 
     request.open("GET", url);
 

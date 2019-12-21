@@ -130,28 +130,14 @@ a:hover {
 
 .pagination {
 	justify-content: center;
-}
-
-.page-link {
-	background-color: transparent;
 	color: #7F7F7F;
-	border: none;
 }
 
-.page-link:hover {
-	background-color: transparent;
-	border: none;
+.pagination:hover {
 	color: #FCA311;
 	text-decoration: underline;
+	cursor: pointer;
 }
-
-.active-page {
-	color: #FCA311 !important;
-	padding: 0.5rem 0.75rem;
-	display: block;
-	line-height: 1.25;
-}
-
 
 @media only screen and (max-width: 700px) {
 
