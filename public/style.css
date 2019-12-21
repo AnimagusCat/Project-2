@@ -146,7 +146,7 @@ a:hover {
 }
 
 .active-page {
-	color: #FCA311;
+	color: #FCA311 !important;
 	padding: 0.5rem 0.75rem;
 	display: block;
 	line-height: 1.25;

@@ -105,6 +105,11 @@ app.post('/recommend', (request, response) => {
   response.render('recommend', urlData);
 });
 
+/////CHANGE RECOMMEND PAGES/////
+app.get('/recommend', (request, response) => {
+  response.render('recommend');
+})
+
 //////SHOW INDIVIDUAL MOVIE PAGE/////
 app.get('/movie/:id', (request, response) => {
     let inputId = parseInt( request.params.id );

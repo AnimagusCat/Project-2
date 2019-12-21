@@ -124,35 +124,49 @@ var createMovieDetails = function() {
 
         const pageLink = document.createElement('a');
 
-        if (i+1 === currentPage) {
+        let pageURL = '';
+
+        if (i + 1 === currentPage) {
           pageLink.setAttribute('class', 'active-page');
           pageLink.textContent = `${i + 1}`;
         } else {
             pageLink.setAttribute('class', 'page-link');
             pageLink.textContent = `${i + 1}`;
-            pageLink.href = `#`;
+            // pageLink.href = '';
+
+            //when link is clicked, run a new AJAX request
+            pageLink.addEventListener('click', selectPage, false);
+            function selectPage(){
+                console.log("page clicked!");
+                const page = 'https://api.themoviedb.org/3/discover/movie?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=' + `${i + 1}` + '&with_genres=' + genreArrayString + '&with_runtime.lte=' + time;
+
+                console.log("page url in click event: ", page);
+                changePage(page);
+            }
         };
+
 
         ul.appendChild(page);
         page.appendChild(pageLink);
+
+
     }
 
-    // const page = document.createElement('li');
-    // page.setAttribute('class', 'page-item');
+    //next link
+    const next = document.createElement('li');
+    next.setAttribute('class', 'page-item');
+    const pageLink = document.createElement('a');
+    pageLink.setAttribute('class', 'page-link');
+    pageLink.textContent = `Next`;
+    pageLink.href = 'https://api.themoviedb.org/3/discover/movie?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=' + `${currentPage + 1}` + '&with_genres=' + genreArrayString + '&with_runtime.lte=' + time;
+
+    ul.appendChild(next);
+    next.appendChild(pageLink);
 
 
-    // const pageLink = document.createElement('a');
-    // pageLink.setAttribute('class', 'page-link');
-    // // pageLink.textContent = '1';
-    // // pageLink.href = `${url}`;
-    // pageLink.addEventListener('click', selectPage, false);
-    // function selectPage(){
-
-    // }
 
 
 
-    // page.appendChild(pageLink);
 
 
   } else {
@@ -211,6 +225,15 @@ let runAJAX = function (data) {
     request.send(JSON.stringify(something));
 }
 
-// let changePage = function () {
+function changePage(page){
+    var request = new XMLHttpRequest();
 
-// }
+    request.addEventListener("load", createMovieDetails);
+
+    console.log('page info in changePage: ', page);
+    let url = page;
+
+    request.open("GET", url);
+
+    request.send(url);
+}
