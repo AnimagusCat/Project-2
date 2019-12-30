@@ -139,6 +139,31 @@ a:hover {
 	cursor: pointer;
 }
 
+.log-in {
+	font-family: 'Oswald', sans-serif;
+}
+
+.plus-recommend {
+	font-size: 20px;
+}
+
+.plus-recommend:hover {
+	color: #FCA311;
+}
+
+.addAlert {
+	font-weight: bold;
+	color: #FCA311;
+	margin: 0;
+	display: inline-block;
+	position: absolute;
+	z-index: 1;
+}
+
+.hideAlert {
+	display: none;
+}
+
 @media only screen and (max-width: 700px) {
 
  	#showQnBoard {

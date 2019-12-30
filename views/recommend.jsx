@@ -9,6 +9,7 @@ class Recommend extends React.Component {
     return (
               <html>
               <Layout />
+              <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.4/css/boxicons.min.css' rel='stylesheet'/>
 
                 <body>
                 <div className="container mt-4 text-center">

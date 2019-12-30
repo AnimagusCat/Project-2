@@ -4,7 +4,6 @@ const Layout = require("./layout");
 class Home extends React.Component {
 
   render() {
-
     return (
               <html>
               <Layout />

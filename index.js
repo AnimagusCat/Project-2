@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+
+const request = require('request');
+
 //const url = require('url');
 require('dotenv').config();
 
@@ -59,7 +62,7 @@ const sha256 = require('js-sha256');
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 const SALT = process.env.SALT;
-
+const API_KEY = process.env.API_KEY;
 
 /***********************************************************/
 ////////////////////////////ROUTES//////////////////////////
@@ -73,6 +76,7 @@ app.get('/about', (request, response) => {
 //////////////SHOW LIST OF QUESTIONS////////////
 app.get('/home', (request, response) => {
   console.log('on home route');
+
   response.render('home');
 });
 
@@ -96,30 +100,27 @@ app.post('/recommend', (request, response) => {
 
   let urlData = {
     genreKey: genre,
-    runtimeKey: time
+    runtimeKey: time,
+    API_KEY: API_KEY
   };
-
-  //console.log("the genre: ", urlData.genreKey);
-  //console.log("the duration: ", urlData.runtimeKey);
 
   response.render('recommend', urlData);
 });
 
 /////CHANGE RECOMMEND PAGES/////
-app.get('/recommend', (request, response) => {
-  response.render('recommend');
-})
+// app.get('/recommend', (request, response) => {
+//   response.render('recommend');
+// })
 
 //////SHOW INDIVIDUAL MOVIE PAGE/////
 app.get('/movie/:id', (request, response) => {
     let inputId = parseInt( request.params.id );
-    // console.log("this is the inputId: ", inputId );
 
     let movie = {
-        id: inputId
+        id: inputId,
+        API_KEY: API_KEY
     };
 
-    // console.log("this is movie object: ", movie);
     response.render('movieid', movie);
   });
 
@@ -137,10 +138,10 @@ app.post('/signin', (request, response) => {
   console.log("hashed entered password: " + hashedPassword);
 
   const queryString = `SELECT * FROM users WHERE username = $1`;
-  console.log("this is the query string from POST signin: ", queryString);
+  // console.log("this is the query string from POST signin: ", queryString);
 
   pool.query(queryString, username, (err, result) => {
-    console.log("this is the result", result);
+    // console.log("this is the result", result);
    // console.log("this is the result.rows", result.rows);
     if (err) {
       console.error("query error:", err.stack);
@@ -191,14 +192,17 @@ app.post('/register', (request, response)=>{
 
 //////SHOW USER'S MOVIE LIST///////
 app.get ('/profile', (request, response) => {
+  console.log("~~On Profile route~~");
   let user_id = [request.cookies.user_id];
   let savedCookie = request.cookies.loggedIn;
 
   const queryUsers = `SELECT * FROM users WHERE id = $1`;
-  const queryMovieList = `SELECT * FROM movielist WHERE users_id = $1`;
+
+  const queryMovieList = `SELECT * FROM movielists WHERE users_id = $1`;
+
 
   if (savedCookie === undefined) {
-  response.send ("You need to be logged in to view this page!")
+  response.redirect ("signin")
   } else {
     pool.query(queryUsers, user_id, (err, result) => {
       if (err) {
@@ -206,6 +210,7 @@ app.get ('/profile', (request, response) => {
         response.send("Error in fetching user profile. Please try again.");
       } else {
           pool.query(queryMovieList, user_id, (err, result) => {
+            console.log("THIS IS THE RESULT: ", result);
             const movieList = {
                 list: result.rows
             };

@@ -4,7 +4,7 @@ username TEXT,
 password TEXT
 );
 
-CREATE TABLE IF NOT EXISTS movielist (
+CREATE TABLE IF NOT EXISTS movielists (
 id SERIAL PRIMARY KEY,
 users_id INTEGER,
 movieid INTEGER,

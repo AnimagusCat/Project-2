@@ -1,6 +1,6 @@
 var React = require("react");
 
-class Layout extends React.Component {
+class navLoggedIn extends React.Component {
   render() {
 
     return (
@@ -32,7 +32,7 @@ class Layout extends React.Component {
                         <li className="nav-item"><a className="nav-link" href="/profile">Profile</a></li>
 
                         <li className="nav-item">
-                            <a className="nav-link" href="/signin">Sign In</a>
+                            <a className="nav-link" href="/signin">Sign Out</a>
                         </li>
                     </ul>
                 </div>
@@ -47,4 +47,4 @@ class Layout extends React.Component {
   }
 }
 
-module.exports = Layout;
+module.exports = navLoggedIn;

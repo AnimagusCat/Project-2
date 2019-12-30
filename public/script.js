@@ -59,10 +59,9 @@ var createMovieDetails = function() {
         a.href = "".concat("/movie/", movie.id);
         a.textContent = "See more info";
 
-        const plusSubmit = document.createElement('input');
-        plusSubmit.setAttribute('type', 'image');
-        plusSubmit.src = "images/plus.png";
-        plusSubmit.style.cssText = "width: 10%;";
+        const plusSubmit = document.createElement('button');
+        plusSubmit.innerHTML = `<i class='bx bxs-plus-circle plus-recommend'></i>`;
+        plusSubmit.style.cssText = "background-color: transparent; border: none";
 
         const container = document.getElementsByClassName("container");
         container[0].appendChild(card);
@@ -78,12 +77,23 @@ var createMovieDetails = function() {
         div.appendChild(a);
         col4.appendChild(plusSubmit);
 
+
         plusSubmit.addEventListener('click', checkAdd, false);
         function checkAdd(){
             if (request.cookies === null) {
                 plusSubmit.setAttribute('data-toggle', 'popover');
                 plusSubmit.setAttribute('data-content', 'You need to be logged in to add movies to your list');
             } else {
+                const addAlert = document.createElement('p');
+                addAlert.setAttribute('class', 'addAlert');
+                addAlert.textContent = 'Added!';
+                col4.appendChild(addAlert);
+
+                setTimeout(function() {
+                    addAlert.setAttribute('class', 'hideAlert');
+                    console.log("Ended");
+                } ,300);
+
                 const dataToAdd = {
                 movieid: movie.id,
                 movietitle: movie.title,
@@ -91,7 +101,7 @@ var createMovieDetails = function() {
                 movierating: movie.vote_average,
                 watched: false,
                 favourite: false,
-            };
+                };
                 runAJAX(dataToAdd);
             };
         };
@@ -117,7 +127,7 @@ var createMovieDetails = function() {
 
             container.removeChild(page);
 
-            const link = 'https://api.themoviedb.org/3/discover/movie?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=' + `${currentPage + 1}` + '&with_genres=' + genreArrayString + '&with_runtime.lte=' + time;
+            const link = 'https://api.themoviedb.org/3/discover/movie?api_key=' + API_KEY + '&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=' + `${currentPage + 1}` + '&with_genres=' + genreArrayString + '&with_runtime.lte=' + time;
 
             changePage(link);
         }
@@ -145,10 +155,10 @@ const genreArray = something.genreKey;
 /////THIS URL CHANGES ACCORDING TO FORM'S ANSWERS/////
 ////this joins all the values in the array and add %7C to the middle values///
 let genreArrayString = genreArray.join("%7C");
-
 let time = something.runtimeKey;
+let API_KEY = something.API_KEY;
 
-let url = 'https://api.themoviedb.org/3/discover/movie?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=' + genreArrayString + '&with_runtime.lte=' + time;
+let url = 'https://api.themoviedb.org/3/discover/movie?api_key=' + API_KEY + '&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=' + genreArrayString + '&with_runtime.lte=' + time;
 
 request.open("GET", url);
 
@@ -169,7 +179,6 @@ let runAJAX = function (data) {
     request.open("POST", url);
 
     request.setRequestHeader("Content-type", "application/json;charset=UTF-8")
-    console.log("HEREEEEEE")
     console.log(data);
     let something = {
         data:data

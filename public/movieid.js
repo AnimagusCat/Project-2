@@ -8,10 +8,7 @@ var individualMovie = function() {
 
   //////the JSON data from URL////////
   var movieDetails = JSON.parse(this.responseText);
-  // console.log("this is the full movie details: ", movieDetails);
-  // console.log("this is the genre: ", movieDetails.genres);
-  // console.log("this is the title: ", movieDetails.title);
-  // console.log("this is the overview: ", movieDetails.overview);
+
   ////create the movie contents and append to body////
   if (request.status >= 200 && request.status < 400) {
     //////FOR THE FIRST TAB 'DETAILS'////////
@@ -127,10 +124,8 @@ var individualMovie = function() {
     genreCol.appendChild(genreLabel);
 
     let genres = genresArray.map (genreItem => {
-        console.log("this is the genreItem: ", genreItem);
         const genre = document.createElement('p');
         genre.textContent = genreItem.name;
-        console.log ("this is a genre: ", genre);
         genreCol.appendChild(genre);
         return;
     });
@@ -183,10 +178,11 @@ var request = new XMLHttpRequest();
 request.addEventListener("load", individualMovie);
 
 /////THE MOVIE ID THAT USER SELECTED/////
-console.log("Movie ID from the index.js: " , thisMovie.id);
 let thisMovieId = thisMovie.id;
 
-let url = 'https://api.themoviedb.org/3/movie/' + thisMovieId + '?api_key=731fb93fefd0f2baf1f4459eb3c95d13&language=en-US&append_to_response=videos';
+let API_KEY = thisMovie.API_KEY;
+
+let url = 'https://api.themoviedb.org/3/movie/' + thisMovieId + '?api_key=' + API_KEY + '&language=en-US&append_to_response=videos';
 
 request.open("GET", url);
 
