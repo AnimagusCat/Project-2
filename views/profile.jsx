@@ -7,6 +7,23 @@ class Profile extends React.Component {
     let jData = JSON.stringify(this.props);
 
     const movies = this.props.list.map (movieItem => {
+        let heartContent = '';
+        if(movieItem.favourite === false) {
+            heartContent =
+            <div className="heartBox">
+                <button type="submit" value={movieItem.movieid} className="heartBtn"><i class='bx bxs-heart bx-md'></i>
+                </button>
+                <p className="pro-btn-text">Favourite</p>
+            </div>
+        } else {
+            heartContent =
+            <div className="heartBox">
+                <button type="submit" value={movieItem.movieid} className="heartBtn heart-selected"><i class='bx bxs-heart bx-md'></i>
+                </button>
+                <p className="pro-btn-selected">Favourite</p>
+            </div>
+        }
+
       return <div className="card mb-3" style={{maxWidth: "540px"}}>
         <div className="row no-gutters">
           <div className="col-md-4">
@@ -26,11 +43,7 @@ class Profile extends React.Component {
                         <p className="pro-btn-text">Watched</p>
                     </div>
 
-                    <div className="heartBox">
-                        <button type="submit" value={movieItem.movieid} className="heartBtn"><i class='bx bxs-heart bx-md'></i>
-                        </button>
-                        <p className="pro-btn-text">Favourite</p>
-                    </div>
+                    {heartContent}
 
                     <div className="crossBox">
                         <button type="submit" value={movieItem.movieid} className="crossBtn"><i class='bx bx-x bx-lg'></i></button>

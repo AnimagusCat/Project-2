@@ -1,5 +1,4 @@
 const heart = document.querySelectorAll(".heartBtn");
-// console.log("this is heart: ", heart);
 
 for (let i = 0; i < heart.length; i++){
     heart[i].addEventListener('click', clickHandler);
@@ -7,8 +6,16 @@ for (let i = 0; i < heart.length; i++){
 
 function clickHandler(event){
     let heart = event.target;
-    console.log("this is heart within clickHandler: ", heart);
-    console.log("this is heart value", heart.value);
+
+    if (heart.className === 'heartBtn'){
+      heart.setAttribute('class', 'heartBtn heart-selected');
+      console.log("this is the new heart class: ", heart.className);
+
+    } else if (heart.className === 'heartBtn heart-selected') {
+        heart.classList.remove('heart-selected');
+        console.log("this is the new heart class: ", heart.className);
+    }
+
 
     const dataToAdd = {
         movieid: heart.value

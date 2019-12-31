@@ -173,6 +173,18 @@ a:hover {
 	padding-bottom: 14px;
 }
 
+.heart-selected {
+	background-color: transparent;
+	border: none;
+	padding-bottom: 14px;
+	color: #FCA311;
+}
+
+.pro-btn-selected {
+	font-size: 0.7rem;
+	color: #FCA311;
+}
+
 .checkBox:hover .checkBtn i, .checkBox:hover p, .crossBox:hover .crossBtn i, .crossBox:hover p, .heartBox:hover p, .heartBox:hover .heartBtn i {
 	color: #FCA311;
 }
