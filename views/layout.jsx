@@ -32,7 +32,7 @@ class Layout extends React.Component {
                         <li className="nav-item"><a className="nav-link" href="/profile">Profile</a></li>
 
                         <li className="nav-item">
-                            <a className="nav-link" href="/signin">Sign In</a>
+                            <a className="nav-link" href="/signin">Sign In/Out</a>
                         </li>
                     </ul>
                 </div>

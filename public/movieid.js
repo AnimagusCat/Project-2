@@ -95,7 +95,6 @@ var individualMovie = function() {
     genreLabel.textContent = "Genres";
 
     let genresArray = movieDetails.genres;
-    console.log("this is genresArray: ", genresArray);
 
     const content = document.getElementById("nav-details");
     content.appendChild(row1);
@@ -158,13 +157,10 @@ var individualMovie = function() {
       trailerTab.appendChild(errorMsg);
     } else {
         const trailer = document.getElementById("trailer");
-        console.log("trailer element: ", trailer);
 
         let baseTrailerURL = "https://www.youtube.com/embed/";
         let movieTrailerId = movieDetails.videos.results[0].key;
-        console.log("this is the trailer id: ", movieTrailerId);
         trailer.src = "".concat(baseTrailerURL, movieTrailerId);
-        console.log("this is the trailer url: ", trailer.src);
     };
   } else {
       reponse.send("Error fetching movie data");

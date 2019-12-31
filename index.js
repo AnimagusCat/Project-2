@@ -107,11 +107,6 @@ app.post('/recommend', (request, response) => {
   response.render('recommend', urlData);
 });
 
-/////CHANGE RECOMMEND PAGES/////
-// app.get('/recommend', (request, response) => {
-//   response.render('recommend');
-// })
-
 //////SHOW INDIVIDUAL MOVIE PAGE/////
 app.get('/movie/:id', (request, response) => {
     let inputId = parseInt( request.params.id );
@@ -127,7 +122,14 @@ app.get('/movie/:id', (request, response) => {
 /////////////SHOW SIGN IN PAGE//////////////
 app.get('/signin', (request, response) => {
   console.log('on signin route');
-  response.render('signin');
+  if (request.cookies.loggedIn === undefined) {
+    response.render('signin');
+  } else {
+    response.clearCookie('user_id');
+    response.clearCookie('loggedIn');
+    response.render('signout');
+  }
+
 });
 
 ///////////VERIFY SIGN IN DETAILS/////////////
@@ -210,11 +212,10 @@ app.get ('/profile', (request, response) => {
         response.send("Error in fetching user profile. Please try again.");
       } else {
           pool.query(queryMovieList, user_id, (err, result) => {
-            console.log("THIS IS THE RESULT: ", result);
             const movieList = {
                 list: result.rows
             };
-            console.log("this is movieList in INDEX: ", movieList);
+
           response.render("profile", movieList);
           });
 
@@ -241,7 +242,7 @@ app.post('/profile', (request, response) => {
     response.send ("You need to be logged in to view this page!")
   } else {
       let values = [user_id, movieid, movietitle, posterimage, movierating, watched, favourite];
-      const queryString = `INSERT INTO movielist (users_id, movieid, movietitle, posterimage, movierating, watched, favourite) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+      const queryString = `INSERT INTO movielists (users_id, movieid, movietitle, posterimage, movierating, watched, favourite) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
 
       pool.query(queryString, values, (err, result) => {
         console.log(values);
@@ -256,23 +257,63 @@ app.post('/profile', (request, response) => {
 });
 
 //////UPDATE USER'S MOVIELIST INFO FOR WATCHED, FAV AND DELETE/////
-app.put('/profile', (request, response) => {
+app.put('/heart', (request, response) => {
   let user_id = request.cookies.user_id;
-  console.log("this is the request.body: ", request.body);
+  const movieid = request.body.data.movieid;
+  console.log("this is the user: ", user_id);
+  console.log("this is the request.body: ", request.body.data.movieid);
 
-  //const queryString = `SELECT * FROM movielist WHERE users_id = $1 AND movieid = $2`;
+  let values = [user_id, movieid];
 
-  const queryString = `UPDATE movielist SET watched = $1 WHERE users_id = $2 AND movieid = $3`;
+  const queryFilter = `SELECT * FROM movielists WHERE users_id = $1 AND movieid = $2`;
 
-      pool.query(queryString, values, (err, result) => {
-        console.log(values);
+  const queryTrue = `UPDATE movielists SET favourite='true' WHERE movieid = $1`;
+  const queryFalse = `UPDATE movielists SET favourite='false' WHERE movieid = $1`;
+
+
+  pool.query(queryFilter, values, (err, result) => {
         if (err) {
           console.error("query error:", err.stack);
-          response.send("Oh no! Error in adding to list. Please try again.");
+          response.send("Oh no! Error in updating favourite. Please try again.");
         } else {
-            response.send(result);
-          }
-      });
+            let status = result.rows[0].favourite;
+            let selected = [movieid];
+
+            if (status === false) {
+                pool.query(queryTrue, selected, (err, result2) => {
+                console.log("result from 2nd pool: ", result2);
+                    if (err) {
+                        console.error("query error:", err.stack);
+                        response.send("Oh no! Error in updating favourite. Please try again.");
+                    } else {
+                        console.log ("favourite updated to true");
+                    }
+                })
+            } else {
+               pool.query(queryFalse, selected, (err, result3) => {
+                console.log("result from 2nd pool: ", result3);
+                    if (err) {
+                        console.error("query error:", err.stack);
+                        response.send("Oh no! Error in updating favourite. Please try again.");
+                    } else {
+                        console.log ("favourite updated to false");
+                    }
+                })
+            }
+        }
+  });
+
+  // const queryString = `UPDATE movielists SET watched = $1 WHERE users_id = $2 AND movieid = $3`;
+
+  //     pool.query(queryString, values, (err, result) => {
+  //       console.log(values);
+  //       if (err) {
+  //         console.error("query error:", err.stack);
+  //         response.send("Oh no! Error in adding to list. Please try again.");
+  //       } else {
+  //           response.send(result);
+  //         }
+  //     });
 
 
 

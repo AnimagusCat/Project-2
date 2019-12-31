@@ -164,6 +164,27 @@ a:hover {
 	display: none;
 }
 
+.checkBtn, .heartBtn, .crossBtn {
+	background-color: transparent;
+	border: none;
+}
+
+.heartBtn {
+	padding-bottom: 14px;
+}
+
+.checkBox:hover .checkBtn i, .checkBox:hover p, .crossBox:hover .crossBtn i, .crossBox:hover p, .heartBox:hover p, .heartBox:hover .heartBtn i {
+	color: #FCA311;
+}
+
+.pro-btn-text {
+	font-size: 0.7rem;
+}
+
+.bxs-heart {
+	pointer-events: none;
+}
+
 @media only screen and (max-width: 700px) {
 
  	#showQnBoard {

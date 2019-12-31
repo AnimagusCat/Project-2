@@ -1,38 +1,49 @@
-var updateProfile = function() {
+const heart = document.querySelectorAll(".heartBtn");
+// console.log("this is heart: ", heart);
 
-  console.log("response text", JSON.parse(this.responseText));
-  console.log("status text", this.statusText);
-  console.log("status code", this.status);
-
-  //////the JSON data from URL////////
-  var clickHandler = function(event){
-    let heart = event.target;
-    console.log("this is heart within clickHandler: ", heart);
-      heart.src = "/images/favorite-heart-button.png";
-      heart.style.cssText = "width: 30px;";
-
-      console.log("this is heart value: ", heart.defaultValue);
-      const dataToAdd = heart.defaultValue;
-
-      runAJAX(dataToAdd);
-  };
-
-  let heart = document.querySelectorAll(".heart");
-  console.log("this is heart: ", heart);
-
-  for (var i = 0; i < heart.length; i++){
+for (let i = 0; i < heart.length; i++){
     heart[i].addEventListener('click', clickHandler);
-    console.log("this is one heart in loop: ", heart[i]);
-  };
 };
 
-var request = new XMLHttpRequest();
+function clickHandler(event){
+    let heart = event.target;
+    console.log("this is heart within clickHandler: ", heart);
+    console.log("this is heart value", heart.value);
 
-request.addEventListener("load", updateProfile);
+    const dataToAdd = {
+        movieid: heart.value
+    };
+    runAJAX(dataToAdd);
+  };
 
-let url = '/profile';
 
-request.open("PUT", url);
-request.setRequestHeader("Content-type", "application/json;charset=UTF-8")
+// var updateProfile = function() {
 
-request.send(dataToAdd);
+//   console.log("response text", JSON.parse(this.responseText));
+//   console.log("status text", this.statusText);
+//   console.log("status code", this.status);
+
+
+
+// };
+
+//update user's profile if heart button is clicked
+let runAJAX = function (data) {
+    /////send new HTTP request/////
+    var request = new XMLHttpRequest();
+    request.addEventListener("load",function(){
+        console.log(JSON.parse(this.responseText));
+    });
+
+    let url = '/heart';
+
+    request.open("PUT", url);
+
+    request.setRequestHeader("Content-type", "application/json;charset=UTF-8")
+    console.log(data);
+    let something = {
+        data:data
+    }
+    // send the request
+    request.send(JSON.stringify(something));
+}
