@@ -352,6 +352,32 @@ app.put('/check', (request, response) => {
   })
 });
 
+/////UPDATE USER'S MOVIELIST FOR DELETE/////
+app.put('/cross', (request, response) => {
+  let user_id = request.cookies.user_id;
+  const movieid = request.body.data.movieid;
+
+  console.log("this is the user: ", user_id);
+  console.log("this is the request.body: ", request.body.data.movieid);
+
+  let values = [user_id, movieid];
+
+  const queryString = `DELETE from movielists WHERE users_id= $1 AND movieid = $2`;
+
+  pool.query(queryString, values, (err, result) => {
+    if (err) {
+        console.error("query error:", err.stack);
+        response.send("Oh no! Error in deleting movie. Please try again.");
+    } else {
+        console.log ("movie deleted from list");
+    }
+  })
+});
+
+
+
+
+
 /**********************************************************/
 //////////////////////PORT DETAILS//////////////////////////
 /**********************************************************/
