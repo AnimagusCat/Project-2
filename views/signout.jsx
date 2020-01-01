@@ -9,7 +9,7 @@ class signOut extends React.Component {
               <Layout />
                 <body>
                 <div className="container mt-4 text-center">
-                  <p>Successfully signed out</p>
+                  <h2 className="log-in">Successfully signed out</h2>
                   <img src="../images/clap.gif"/>
                 </div>
                 </body>

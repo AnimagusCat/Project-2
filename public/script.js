@@ -80,9 +80,9 @@ var createMovieDetails = function() {
 
         plusSubmit.addEventListener('click', checkAdd, false);
         function checkAdd(){
-            if (request.cookies === null) {
-                plusSubmit.setAttribute('data-toggle', 'popover');
-                plusSubmit.setAttribute('data-content', 'You need to be logged in to add movies to your list');
+            if (request.cookies === undefined) {
+              alert("You need to be logged in to add movies to your list");
+
             } else {
                 const addAlert = document.createElement('p');
                 addAlert.setAttribute('class', 'addAlert');
@@ -91,7 +91,6 @@ var createMovieDetails = function() {
 
                 setTimeout(function() {
                     addAlert.setAttribute('class', 'hideAlert');
-                    console.log("Ended");
                 } ,300);
 
                 const dataToAdd = {

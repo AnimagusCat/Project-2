@@ -7,16 +7,19 @@ for (let i = 0; i < heart.length; i++){
 
 function clickHeart(event){
     let heart = event.target;
+    let favText = heart.nextElementSibling;
 
+    //change classnames so they appear coloured or not
     if (heart.className === 'heartBtn'){
       heart.setAttribute('class', 'heartBtn heart-selected');
-      // console.log("this is the new heart class: ", heart.className);
+      favText.setAttribute('class', 'pro-btn-selected');
 
     } else if (heart.className === 'heartBtn heart-selected'){
         heart.classList.remove('heart-selected');
-        // console.log("this is the new heart class: ", heart.className);
+        favText.setAttribute('class', 'pro-btn-text');
     }
 
+    //selected movieid to update
     const dataToAdd = {
         movieid: heart.value
     };
@@ -32,13 +35,19 @@ for (let i = 0; i < check.length; i++){
 
 function clickCheck(event){
     let check = event.target;
+    let watchText = check.nextElementSibling;
 
+    //change classnames so they appear coloured or not
     if (check.className === 'checkBtn'){
       check.setAttribute('class', 'checkBtn check-selected');
+      watchText.setAttribute('class', 'pro-btn-selected');
+
     } else if (check.className === 'checkBtn check-selected'){
         check.classList.remove('check-selected');
+        watchText.setAttribute('class', 'pro-btn-text');
     }
 
+    //selected movieid to update
     const dataToAdd = {
         movieid: check.value
     };
@@ -50,17 +59,41 @@ const cross = document.querySelectorAll(".crossBtn");
 
 for (let i = 0; i < cross.length; i++) {
     cross[i].addEventListener('click', clickCross);
-    console.log("this is one cross in loop: ", cross[i]);
 };
 
 function clickCross(event){
     let cross = event.target;
-    console.log("cross clicked!");
 
-    const dataToDelete = {
-        movieid: cross.value
+    if (confirm("Delete this movie from your list?") === true){
+        //retrieve the card to be deleted
+        let crossBox = cross.parentElement;
+        console.log(crossBox);
+
+        let icons = crossBox.parentElement;
+        console.log(icons);
+
+        let cardBody = icons.parentElement;
+        console.log(cardBody);
+
+        let col8 = cardBody.parentElement;
+        console.log(col8);
+
+        let row = col8.parentElement;
+        console.log(row);
+
+        let card = row.parentElement;
+        console.log(card);
+
+        let container = document.querySelector('.container');
+        container.removeChild(card);
+
+        //get movieid to be deleted
+        const dataToDelete = {
+            movieid: cross.value
+        };
+
+        runCrossAJAX(dataToDelete);
     };
-    runCrossAJAX(dataToDelete);
 };
 
 

@@ -16,7 +16,7 @@ class About extends React.Component {
                     <br />
 
                     <div class="about-info">
-                        <p style={{margin: "0 10% 0 10%" }}><b>showMe</b> helps you find movies specially tailored to your mood and available time so you can quickly get to watching instead of filtering through irrelevant lists. You can also get a quick look at the trending movies for the week. This service is free and you may use this as a guest. However as a member, you can gain access to your own watchlist where you can add and favourite movies.</p>
+                        <p style={{margin: "0 10% 0 10%" }}><b>showMe</b> helps you find movies specially tailored to your mood and available time so you can quickly get to watching instead of filtering through irrelevant lists. This service is free and you may use this as a guest. However as a member, you can gain access to your own watchlist where you can add and favourite movies.</p>
                         <br />
                         <br />
                         <p>This product uses the <a href="https://www.themoviedb.org/" target="_blank">TMDb</a> API but is not endorsed or certified by TMDb.</p>
