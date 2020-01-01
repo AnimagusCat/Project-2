@@ -1,41 +1,57 @@
+/////HEART CLICK HANDLER/////
 const heart = document.querySelectorAll(".heartBtn");
 
 for (let i = 0; i < heart.length; i++){
-    heart[i].addEventListener('click', clickHandler);
+    heart[i].addEventListener('click', clickHeart);
 };
 
-function clickHandler(event){
+function clickHeart(event){
     let heart = event.target;
 
     if (heart.className === 'heartBtn'){
       heart.setAttribute('class', 'heartBtn heart-selected');
-      console.log("this is the new heart class: ", heart.className);
+      // console.log("this is the new heart class: ", heart.className);
 
-    } else if (heart.className === 'heartBtn heart-selected') {
+    } else if (heart.className === 'heartBtn heart-selected'){
         heart.classList.remove('heart-selected');
-        console.log("this is the new heart class: ", heart.className);
+        // console.log("this is the new heart class: ", heart.className);
     }
-
 
     const dataToAdd = {
         movieid: heart.value
     };
-    runAJAX(dataToAdd);
+    runHeartAJAX(dataToAdd);
   };
 
+//////CHECK CLICK HANDLER/////
+const check = document.querySelectorAll(".checkBtn");
 
-// var updateProfile = function() {
+for (let i = 0; i < check.length; i++){
+    check[i].addEventListener('click', clickCheck);
+    console.log("this is one check in loop: ", check[i]);
+};
 
-//   console.log("response text", JSON.parse(this.responseText));
-//   console.log("status text", this.statusText);
-//   console.log("status code", this.status);
+function clickCheck(event){
+    let check = event.target;
 
+    if (check.className === 'checkBtn'){
+      check.setAttribute('class', 'checkBtn check-selected');
+      console.log("this is the new check class: ", check.className);
 
+    } else if (check.className === 'checkBtn check-selected'){
+        check.classList.remove('check-selected');
+        console.log("this is the new check class: ", check.className);
+    }
 
-// };
+    const dataToAdd= {
+        movieid: check.value
+    };
+    runCheckAJAX(dataToAdd);
+};
+
 
 //update user's profile if heart button is clicked
-let runAJAX = function (data) {
+let runHeartAJAX = function (data) {
     /////send new HTTP request/////
     var request = new XMLHttpRequest();
     request.addEventListener("load",function(){
@@ -53,4 +69,24 @@ let runAJAX = function (data) {
     }
     // send the request
     request.send(JSON.stringify(something));
-}
+};
+
+//update user's profile if check button is clicked
+let runCheckAJAX = function (data){
+    var request = new XMLHttpRequest();
+    request.addEventListener("load", function(){
+        console.log(JSON.parse(this.responseText));
+    });
+
+    let url = '/check';
+
+    request.open("PUT", url);
+
+    request.setRequestHeader("Content-type", "application/json;charset=UTF-8")
+    console.log(data);
+    let something = {
+        data: data
+    }
+
+    request.send(JSON.stringify(something));
+};

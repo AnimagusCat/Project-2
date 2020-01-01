@@ -256,7 +256,7 @@ app.post('/profile', (request, response) => {
   }
 });
 
-//////UPDATE USER'S MOVIELIST INFO FOR WATCHED, FAV AND DELETE/////
+//////UPDATE USER'S MOVIELIST FOR FAV/////
 app.put('/heart', (request, response) => {
   let user_id = request.cookies.user_id;
   const movieid = request.body.data.movieid;
@@ -270,7 +270,7 @@ app.put('/heart', (request, response) => {
   const queryTrue = `UPDATE movielists SET favourite='true' WHERE movieid = $1`;
   const queryFalse = `UPDATE movielists SET favourite='false' WHERE movieid = $1`;
 
-
+  //filter movielists to specific user and movieid
   pool.query(queryFilter, values, (err, result) => {
         if (err) {
           console.error("query error:", err.stack);
@@ -279,6 +279,7 @@ app.put('/heart', (request, response) => {
             let status = result.rows[0].favourite;
             let selected = [movieid];
 
+            //update user's movie fav to true/false
             if (status === false) {
                 pool.query(queryTrue, selected, (err, result2) => {
                 console.log("result from 2nd pool: ", result2);
@@ -301,23 +302,55 @@ app.put('/heart', (request, response) => {
                 })
             }
         }
-  });
+  })
+});
 
-  // const queryString = `UPDATE movielists SET watched = $1 WHERE users_id = $2 AND movieid = $3`;
+/////UPDATE USER'S MOVIELIST FOR WATCHED/////
+app.put('/check', (request, response) => {
+  let user_id = request.cookies.user_id;
+  const movieid = request.body.data.movieid;
 
-  //     pool.query(queryString, values, (err, result) => {
-  //       console.log(values);
-  //       if (err) {
-  //         console.error("query error:", err.stack);
-  //         response.send("Oh no! Error in adding to list. Please try again.");
-  //       } else {
-  //           response.send(result);
-  //         }
-  //     });
+  let values = [user_id, movieid];
 
+  const queryFilter = `SELECT * FROM movielists WHERE users_id = $1 AND movieid = $2`;
 
+  const queryTrue = `UPDATE movielists SET watched='true' WHERE movieid = $1`;
+  const queryFalse = `UPDATE movielists SET watched='false' WHERE movieid = $1`;
 
-})
+  //filter movielists to specific user and movieid
+  pool.query(queryFilter, values, (err, result) => {
+        if (err) {
+          console.error("query error:", err.stack);
+          response.send("Oh no! Error in updating watched. Please try again.");
+        } else {
+            let status = result.rows[0].watched;
+            let selected = [movieid];
+
+            //update user's movie watched to true/false
+            if (status === false) {
+                pool.query(queryTrue, selected, (err, result2) => {
+                console.log("result from 2nd pool: ", result2);
+                    if (err) {
+                        console.error("query error:", err.stack);
+                        response.send("Oh no! Error in updating watched. Please try again.");
+                    } else {
+                        console.log ("watched updated to true");
+                    }
+                })
+            } else {
+               pool.query(queryFalse, selected, (err, result3) => {
+                console.log("result from 2nd pool: ", result3);
+                    if (err) {
+                        console.error("query error:", err.stack);
+                        response.send("Oh no! Error in updating watched. Please try again.");
+                    } else {
+                        console.log ("watched updated to false");
+                    }
+                })
+            }
+        }
+  })
+});
 
 /**********************************************************/
 //////////////////////PORT DETAILS//////////////////////////

@@ -22,6 +22,21 @@ class Profile extends React.Component {
                 </button>
                 <p className="pro-btn-selected">Favourite</p>
             </div>
+        };
+
+        let checkContent = '';
+        if(movieItem.watched === false){
+            checkContent =
+            <div className="checkBox">
+                <button type="submit" value={movieItem.movieid} className="checkBtn"><i class='bx bx-check bx-lg'></i></button>
+                <p className="pro-btn-text">Watched</p>
+            </div>
+        } else {
+            checkContent =
+            <div className="checkBox">
+                <button type="submit" value={movieItem.movieid} className="checkBtn check-selected"><i class='bx bx-check bx-lg'></i></button>
+                <p className="pro-btn-selected">Watched</p>
+            </div>
         }
 
       return <div className="card mb-3" style={{maxWidth: "540px"}}>
@@ -38,10 +53,7 @@ class Profile extends React.Component {
                 <a href={`/movie/${movieItem.movieid}`}>See more info</a>
                 <div className="icons d-flex justify-content-around" style={{paddingTop: "20%"}}>
 
-                    <div className="checkBox">
-                        <button type="submit" value={movieItem.movieid} className="checkBtn"><i class='bx bx-check bx-lg'></i></button>
-                        <p className="pro-btn-text">Watched</p>
-                    </div>
+                    {checkContent}
 
                     {heartContent}
 
@@ -70,7 +82,7 @@ class Profile extends React.Component {
                 <body>
                 <div className="container mt-4 text-center">
                   <br />
-                  <h2>Your Movie List</h2>
+                  <h2 id="recommend-title">Your Movie List</h2>
                   <br />
                   <p>{errorMsg}</p>
                   <br />

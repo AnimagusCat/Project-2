@@ -173,10 +173,7 @@ a:hover {
 	padding-bottom: 14px;
 }
 
-.heart-selected {
-	background-color: transparent;
-	border: none;
-	padding-bottom: 14px;
+.heart-selected, .check-selected {
 	color: #FCA311;
 }
 
@@ -193,7 +190,7 @@ a:hover {
 	font-size: 0.7rem;
 }
 
-.bxs-heart {
+.bx {
 	pointer-events: none;
 }
 
