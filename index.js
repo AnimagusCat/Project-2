@@ -3,7 +3,7 @@ const app = express();
 
 const request = require('request');
 
-//const url = require('url');
+const url = require('url');
 require('dotenv').config();
 
 app.use(express.static('public'))
@@ -20,24 +20,24 @@ app.use(express.urlencoded({
 }));
 
 //check to see if we have this heroku environment variable
-// if( process.env.DATABASE_URL ){
+if( process.env.DATABASE_URL ){
 
-//   //we need to take apart the url so we can set the appropriate configs
+  //we need to take apart the url so we can set the appropriate configs
 
-//   const params = url.parse(process.env.DATABASE_URL);
-//   const auth = params.auth.split(':');
+  const params = url.parse(process.env.DATABASE_URL);
+  const auth = params.auth.split(':');
 
-//   //make the configs object
-//   var configs = {
-//     user: auth[0],
-//     password: auth[1],
-//     host: params.hostname,
-//     port: params.port,
-//     database: params.pathname.split('/')[1],
-//     ssl: true
-//   };
+  //make the configs object
+  var configs = {
+    user: auth[0],
+    password: auth[1],
+    host: params.hostname,
+    port: params.port,
+    database: params.pathname.split('/')[1],
+    ssl: true
+  };
 
-// }else{
+}else{
 
     // Initialise postgres client
     const configs = {
@@ -384,9 +384,6 @@ const PORT = process.env.PORT || 3000;
 
 const server = app.listen(PORT, () => console.log('~~~ Tuning in to the waves of port '+PORT+' ~~~'));
 
-
-//const server = app.listen(5000, () => console.log('~~~ Tuning in to the waves of port 5000 ~~~'));
-
 let onClose = function(){
   console.log("closing");
 
@@ -398,8 +395,3 @@ let onClose = function(){
 
 process.on('SIGTERM', onClose);
 process.on('SIGINT', onClose);
-
-/*const port = 5000;
-console.log("start listening");
-app.listen(port)
-console.log("done listening");*/
