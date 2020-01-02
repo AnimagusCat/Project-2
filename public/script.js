@@ -80,7 +80,8 @@ var createMovieDetails = function() {
 
         plusSubmit.addEventListener('click', checkAdd, false);
         function checkAdd(){
-            if (request.cookies === undefined) {
+            let cookies = something.cookies;
+            if (cookies === undefined) {
               alert("You need to be logged in to add movies to your list");
 
             } else {
@@ -91,7 +92,7 @@ var createMovieDetails = function() {
 
                 setTimeout(function() {
                     addAlert.setAttribute('class', 'hideAlert');
-                } ,300);
+                } ,500);
 
                 const dataToAdd = {
                 movieid: movie.id,

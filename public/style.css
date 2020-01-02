@@ -128,6 +128,19 @@ a:hover {
 	margin-top: 5%;
 }
 
+.add-icon {
+	text-align: right;
+}
+
+.alertMovieid {
+	font-weight: bold;
+	color: #FCA311;
+	margin: 8% 30% 0 0;
+	display: inline-block;
+	position: absolute;
+	z-index: 1;
+}
+
 .pagination {
 	justify-content: center;
 	color: #7F7F7F;

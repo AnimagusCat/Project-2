@@ -132,10 +132,20 @@ var individualMovie = function() {
     /////ADDS EVENT LISTENER TO PLUS BUTTON//////
     plus.addEventListener('click', checkAdd, false);
     function checkAdd(){
-        if (request.cookies === null) {
-            plus.setAttribute('data-toggle', 'popover');
-            plus.setAttribute('data-content', 'You need to be logged in to add movies to your list');
+        let cookies = thisMovie.cookies;
+        if (cookies === undefined) {
+            alert("You need to be logged in to add movies to your list");
         } else {
+            const addAlert = document.createElement('p');
+            addAlert.setAttribute('class', 'alertMovieid');
+            addAlert.textContent = 'Added!';
+            alertPosition = document.querySelector('.add-icon');
+            alertPosition.appendChild(addAlert);
+
+            setTimeout(function() {
+                addAlert.setAttribute('class', 'hideAlert');
+            } ,500);
+
             const dataToAdd = {
             movieid: movieDetails.id,
             movietitle: movieDetails.title,

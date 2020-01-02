@@ -101,6 +101,7 @@ app.post('/recommend', (request, response) => {
   let urlData = {
     genreKey: genre,
     runtimeKey: time,
+    cookies: request.cookies.loggedIn,
     API_KEY: API_KEY
   };
 
@@ -113,6 +114,7 @@ app.get('/movie/:id', (request, response) => {
 
     let movie = {
         id: inputId,
+        cookies: request.cookies.loggedIn,
         API_KEY: API_KEY
     };
 
@@ -140,11 +142,8 @@ app.post('/signin', (request, response) => {
   console.log("hashed entered password: " + hashedPassword);
 
   const queryString = `SELECT * FROM users WHERE username = $1`;
-  // console.log("this is the query string from POST signin: ", queryString);
 
   pool.query(queryString, username, (err, result) => {
-    // console.log("this is the result", result);
-   // console.log("this is the result.rows", result.rows);
     if (err) {
       console.error("query error:", err.stack);
       response.send("Error in verifying user. Please try again.");
