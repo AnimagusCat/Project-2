@@ -46,7 +46,7 @@ if( process.env.DATABASE_URL ){
       database: 'project2',
       port: 5432,
     };
-//}
+}
 
 const pg = require('pg');
 const pool = new pg.Pool(configs);
