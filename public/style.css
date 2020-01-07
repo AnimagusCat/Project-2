@@ -115,7 +115,7 @@ a:hover {
 	padding: 2%;
 }
 
-.title, .year {
+.title-year {
 	border-bottom: 2px solid #FCA311;
 }
 
@@ -214,5 +214,13 @@ a:hover {
  		width: 80vw;
  		font-size: 0.8em;
  	}
+
+ 	.title h2, .year h2 {
+	font-size: 1.5em;
+	}
+
+	#trailer {
+		width: 100%;
+	}
 
  }

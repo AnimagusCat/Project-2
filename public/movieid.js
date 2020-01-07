@@ -29,16 +29,16 @@ var individualMovie = function() {
     detailCol.style.cssText = "text-align: left; height: inherit;";
 
     const row2 = document.createElement('div');
-    row2.setAttribute('class', 'row');
+    row2.setAttribute('class', 'row title-year');
 
     const titleCol = document.createElement('div');
-    titleCol.setAttribute('class', 'col-sm-10 title');
+    titleCol.setAttribute('class', 'col-9 title');
 
     const title = document.createElement('h2');
     title.textContent = movieDetails.title;
 
     const yearCol = document.createElement('div');
-    yearCol.setAttribute('class', 'col-sm-2 year');
+    yearCol.setAttribute('class', 'col-3 year');
 
     const year = document.createElement('h2');
     year.textContent = movieDetails.release_date.substring(0, 4);
